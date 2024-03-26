@@ -1,0 +1,77 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #595FE4;
+    color: aliceblue;
+    /* justify-content: end; */
+    padding: 0em 1em;
+}
+
+.nav ul li a{
+    text-decoration: none;
+    color: aliceblue;
+}
+.section {
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container .menu-lateral {
+    background-color: #2E2F47;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.container .conteudo {
+    padding: 1em;
+    width: 100%;
+}
+
+.inputs ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+.inputs ul li {
+    list-style: none;
+    text-align: center;
+    margin: 1em 0em;
+    width: 10em;
+}
+.inputs ul li a:hover {
+    border-bottom: 1px solid #EB8F33;
+}
+.inputs ul li a {
+    width: 10em;
+    text-decoration: none;
+    color: aliceblue;
+    padding: 1em;
+    transition: 0.5s;
+}
+
+.logonav {
+    padding: 0.2em;
+}
+
+.logonav .logo{
+    background-image: url(https://vestibular.sc.senac.br/img/brand/logo-ext-white.png);
+    background-size: cover;
+    width: 8em;
+    height: 1.2em;
+    background-repeat: no-repeat;
+    padding: 1em;
+}
