@@ -1,4 +1,4 @@
-import { Box, Button, Divider, InputAdornment, Modal, Pagination, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, InputAdornment, Modal, Pagination, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper'
 import { useEffect, useState } from "react"
@@ -8,7 +8,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from "dayjs";
 import useWindowSize from "../useWindowSize";
 import Paginacao from "../components/paginacao/paginacao";
-
+import 'reset-css';
 
 const Paciente = () => {
 
@@ -118,19 +118,6 @@ const Paciente = () => {
     // FIM TRATANDO DADOS DE PACIENTES
 
 
-    const style = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '60%',
-        height: '60%',
-        bgcolor: 'background.paper',
-        border: '2px solid #1976d2',
-        borderRadius: '0.5em',
-        boxShadow: 24,
-        p: 4,
-    };
 
     // INICIO COD MODAL
 
@@ -155,10 +142,13 @@ const Paciente = () => {
 
     return (
         <>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button style={{ border: '1px solid #1976d2' }} onClick={handleOpen}>Cadastrar Paciente</Button>
-                <div>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <Button sx={{ border: '1px solid #1976d2', width: '100%' }} onClick={handleOpen}>Cadastrar Paciente</Button>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
                     <TextField
+                        sx={{ width: '100%' }}
                         variant="outlined"
                         InputProps={{
                             startAdornment: (
@@ -169,17 +159,52 @@ const Paciente = () => {
                             ),
                         }}
                     />
-                    {/* <SearchIcon style={{ height: '100%', backgroundColor: '#f2f2f2', borderRadius: '0 0.2em 0.2em 0' }} /> */}
-                </div>
-            </div>
-            <Modal
 
+                </Grid>
+            </Grid>
+
+            <Divider sx={{ margin: '1em 0' }} />
+
+            <Box sx={{ overflow: "auto" }}>
+                <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
+                    <Table>
+                        <TableHead sx={{ backgroundColor: '#f2f2f2' }}>
+                            <TableRow>
+                                <TableCell>Nome</TableCell>
+                                <TableCell>CPF</TableCell>
+                                <TableCell>E-mail</TableCell>
+                                <TableCell>Data de Nascimento</TableCell>
+                                <TableCell>Gênero</TableCell>
+                                <TableCell>Endereço</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {pacientes.map((paciente, index) => (
+                                <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    <TableCell component="th" scope="row">{paciente.nome}</TableCell>
+                                    <TableCell>{paciente.cpf}</TableCell>
+                                    <TableCell>{paciente.email}</TableCell>
+                                    <TableCell>{paciente.dataNascimento}</TableCell>
+                                    <TableCell>{paciente.genero}</TableCell>
+                                    <TableCell>{paciente.endereco}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Box>
+            </Box>
+
+
+
+
+            <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                sx={{ maxWidth: '100%', maxHeight: '100%', display: 'flex', justifyContent: 'center', margin: '2em' }}
             >
-                <Box sx={style}>
+                <Box sx={{ bgcolor: 'background.paper', p: 2 }}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         <div>
                             <h4>Cadastro de Paciente</h4>
@@ -187,63 +212,30 @@ const Paciente = () => {
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <Divider style={{ margin: '1em 0' }} />
-
                         <form autoComplete="off" onSubmit={(event) => { event.preventDefault() }}>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
-                                    <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Nome Completo" variant="outlined" type="text" id="nome" name="nome" value={formData.nome} onChange={(event) => setInput(event, 'nome')} />
-                                    <TextField style={{ margin: '0 0.2em', width: '100%' }} label="CPF" variant="outlined" type="text" id="cpf" name="cpf" value={formData.cpf} onChange={(event) => setInput(event, 'cpf')} />
-                                    <TextField style={{ margin: '0 0.2em', width: '100%' }} label="E-mail" variant="outlined" type="text" id="email" name="email" value={formData.email} onChange={(event) => setInput(event, 'email')} />
+                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="Nome Completo" variant="outlined" type="text" id="nome" name="nome" value={formData.nome} onChange={(event) => setInput(event, 'nome')} />
+                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="CPF" variant="outlined" type="text" id="cpf" name="cpf" value={formData.cpf} onChange={(event) => setInput(event, 'cpf')} />
+                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="E-mail" variant="outlined" type="text" id="email" name="email" value={formData.email} onChange={(event) => setInput(event, 'email')} />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
-                                    <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Telefone" variant="outlined" type="text" id="telefone" name="telefone" value={formData.telefone} onChange={(event) => setInput(event, 'telefone')} />
-                                    {/* <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Data Nascimento" variant="outlined" type="date" id="dataNascimento" name="dataNascimento" value={formData.dataNascimento} onChange={(event) => setData(event, 'data_nascimento')} /> */}
+                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="Telefone" variant="outlined" type="text" id="telefone" name="telefone" value={formData.telefone} onChange={(event) => setInput(event, 'telefone')} />
                                     <div style={{ margin: '0 0.2em', width: '100%' }}>
                                         <LocalizationProvider dateAdapter={AdapterDayjs} >
                                             <DatePicker name="dataNascimento" value={formData.dataNascimento} onChange={(event) => setData(event, 'dataNascimento')} />
                                         </LocalizationProvider>
                                     </div>
-                                    <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Gênero" variant="outlined" type="text" id="genero" name="genero" value={formData.genero} onChange={(event) => setInput(event, 'genero')} />
-                                    <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Endereço" variant="outlined" type="text" id="endereco" name="endereco" value={formData.endereco} onChange={(event) => setInput(event, 'endereco')} />
+                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="Gênero" variant="outlined" type="text" id="genero" name="genero" value={formData.genero} onChange={(event) => setInput(event, 'genero')} />
+                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="Endereço" variant="outlined" type="text" id="endereco" name="endereco" value={formData.endereco} onChange={(event) => setInput(event, 'endereco')} />
                                 </div>
                             </div>
-
-                            <Divider style={{ margin: '1em 0' }} />
-
-                            <Button style={{ border: '1px solid #1976d2' }} type="button" onClick={salvarPaciente} id="submit-form">Enviar</Button>
+                            <Divider sx={{ margin: '1em 0' }} />
+                            <Button sx={{ border: '1px solid #1976d2' }} type="button" onClick={salvarPaciente} id="submit-form">Enviar</Button>
                         </form>
                     </Typography>
                 </Box>
             </Modal>
-            <Divider style={{ margin: '1em 0' }} />
-            <h2>Listagem de Pacientes</h2>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table" >
-                    <TableHead style={{ backgroundColor: '#f2f2f2' }}>
-                        <TableRow>
-                            <TableCell>Nome</TableCell>
-                            <TableCell align="right">CPF</TableCell>
-                            <TableCell align="right">E-mail</TableCell>
-                            <TableCell align="right">Data de Nascimento</TableCell>
-                            <TableCell align="right">Gênero</TableCell>
-                            <TableCell align="right">Endereço</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {pacientes.map((paciente, index) => (
-                            <TableRow key={paciente.id}>
-                                <TableCell component="th" scope="row">{paciente.nome}</TableCell>
-                                <TableCell align="right">{paciente.cpf}</TableCell>
-                                <TableCell align="right">{paciente.email}</TableCell>
-                                <TableCell align="right">{paciente.dataNascimento}</TableCell>
-                                <TableCell align="right">{paciente.genero}</TableCell>
-                                <TableCell align="right">{paciente.endereco}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-                <Paginacao />
-            </TableContainer>
         </>
     )
 }

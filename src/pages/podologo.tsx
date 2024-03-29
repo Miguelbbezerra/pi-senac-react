@@ -45,20 +45,12 @@ const Podologo = () => {
 
 
         const dataNascimento = dayjs(formData.dataNascimento).format('YYYY-MM-DD')
-        console.log("data nascimento", dataNascimento)
+        // console.log("data nascimento", dataNascimento)
         const newFormData = Object.assign({}, formData, { dataNascimento: dataNascimento })
 
         const raw = JSON.stringify(newFormData);
 
-        const requestOptions = {
-            mode: 'cors',
-            method: "POST",
-            headers: myHeaders,
-            body: raw,
-        };
-
         fetch("http://localhost:5000/api/podologo", {
-
 
             method: "POST",
             headers: myHeaders,
@@ -77,11 +69,6 @@ const Podologo = () => {
     const setData = (event: any, key: string) => {
 
         const value = dayjs(event).format('YYYY-MM-DD')
-        const date = new Date(event.timeStamp)
-
-
-        console.log(dayjs(event).format('YYYY-MM-DD'))
-        console.log(key)
 
         const newFormData = Object.assign({}, formData, { [key]: value })
 
@@ -99,8 +86,7 @@ const Podologo = () => {
 
     const [formData, setFormData] = useState({
         senha: "",
-        
-        nome: "",
+        nomeCompleto: "",
         cpf: "",
         email: "",
         telefone: "",
@@ -152,7 +138,7 @@ const Podologo = () => {
                         <form autoComplete="off" onSubmit={(event) => { event.preventDefault() }}>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
-                                    <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Nome Completo" variant="outlined" type="text" id="nome" name="nome" value={formData.nome} onChange={(event) => setInput(event, 'nome')} />
+                                    <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Nome Completo" variant="outlined" type="text" id="nome" name="nome" value={formData.nomeCompleto} onChange={(event) => setInput(event, 'nomeCompleto')} />
                                     <TextField style={{ margin: '0 0.2em', width: '100%' }} label="CPF" variant="outlined" type="text" id="cpf" name="cpf" value={formData.cpf} onChange={(event) => setInput(event, 'cpf')} />
                                     <TextField style={{ margin: '0 0.2em', width: '100%' }} label="E-mail" variant="outlined" type="text" id="email" name="email" value={formData.email} onChange={(event) => setInput(event, 'email')} />
                                 </div>
@@ -169,7 +155,6 @@ const Podologo = () => {
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
                                     <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Senha" variant="outlined" type="password" id="senha" name="senha" value={formData.senha} onChange={(event) => setInput(event, 'senha')} />
-                                    {/* <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Confirmar Senha" variant="outlined" type="password" id="confirmSenha" name="confirmSenha" value={formData.confirmSenha} onChange={(event) => setInput(event, 'confirmSenha')} /> */}
                                 </div>
                             </div>
 
@@ -181,34 +166,34 @@ const Podologo = () => {
                 </Box>
             </Modal>
             <Divider style={{ margin: '1em 0' }} />
-            <h2>Listagem de Podólogos</h2>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead style={{ backgroundColor: '#f2f2f2' }}>
-                        <TableRow>
-                            <TableCell>Nome</TableCell>
-                            <TableCell align="right">CPF</TableCell>
-                            <TableCell align="right">E-mail</TableCell>
-                            <TableCell align="right">Data de Nascimento</TableCell>
-                            <TableCell align="right">Gênero</TableCell>
-                            <TableCell align="right">Endereço</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {podologo.map((podologo, index) => (
-                            <TableRow key={podologo.id}>
-                                <TableCell component="th" scope="row">{podologo.nome}</TableCell>
-                                <TableCell align="right">{podologo.cpf}</TableCell>
-                                <TableCell align="right">{podologo.email}</TableCell>
-                                <TableCell align="right">{podologo.dataNascimento}</TableCell>
-                                <TableCell align="right">{podologo.genero}</TableCell>
-                                <TableCell align="right">{podologo.endereco}</TableCell>
+            <Box sx={{ overflow: "auto" }}>
+                <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
+                    <Table>
+                        <TableHead style={{ backgroundColor: '#f2f2f2' }}>
+                            <TableRow>
+                                <TableCell className="tableCell">Nome</TableCell>
+                                <TableCell className="tableCell" align="right">CPF</TableCell>
+                                <TableCell className="tableCell" align="right">E-mail</TableCell>
+                                <TableCell className="tableCell" align="right">Data de Nascimento</TableCell>
+                                <TableCell className="tableCell" align="right">Gênero</TableCell>
+                                <TableCell className="tableCell" align="right">Endereço</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-                <Paginacao />
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {podologo.map((podologo, index) => (
+                                <TableRow key={podologo.id}>
+                                    <TableCell className="tableCell" component="th" scope="row">{podologo.nome}</TableCell>
+                                    <TableCell className="tableCell" align="right">{podologo.cpf}</TableCell>
+                                    <TableCell className="tableCell" align="right">{podologo.email}</TableCell>
+                                    <TableCell className="tableCell" align="right">{podologo.dataNascimento}</TableCell>
+                                    <TableCell className="tableCell" align="right">{podologo.genero}</TableCell>
+                                    <TableCell className="tableCell" align="right">{podologo.endereco}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Box>
+            </Box>
         </>
     )
 }

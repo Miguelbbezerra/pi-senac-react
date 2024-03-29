@@ -74,19 +74,19 @@ const Agendamento = () => {
                 </Box>
             </Modal>
             <Divider style={{ margin: '1em 0' }} />
-            <h2>Listagem de Agendamentos</h2>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650, }} aria-label="simple table">
-                    <TableHead style={{ backgroundColor: '#f2f2f2' }}>
-                        <TableRow>
-                            <TableCell>Dessert (100g serving)</TableCell>
-                            <TableCell align="right">Calories</TableCell>
-                            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <Box sx={{ overflow: "auto" }}>
+                <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
+                    <Table>
+                        <TableHead style={{ backgroundColor: '#f2f2f2' }}>
+                            <TableRow>
+                                <TableCell>Dessert (100g serving)</TableCell>
+                                <TableCell align="right">Calories</TableCell>
+                                <TableCell align="right">Fat&nbsp;(g)</TableCell>
+                                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+                                <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
                             <TableRow
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
@@ -97,10 +97,10 @@ const Agendamento = () => {
                                 <TableCell align="right"></TableCell>
                                 <TableCell align="right"></TableCell>
                             </TableRow>
-                    </TableBody>
-                </Table>
-                <Paginacao />
-            </TableContainer>
+                        </TableBody>
+                    </Table>
+                </Box>
+            </Box>
         </>
     )
 }

@@ -4,6 +4,8 @@ import PersistentDrawerLeft from "./layout/core/PersistentDrawer";
 
 export default function Root(){
     return (
-        <PersistentDrawerLeft />
+        <PersistentDrawerLeft>
+            <Outlet/>
+        </PersistentDrawerLeft>
     )
 }
