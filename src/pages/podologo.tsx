@@ -1,48 +1,23 @@
-import { Box, Button, Divider, Modal, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
-import Paper from '@mui/material/Paper'
+import { Box, Button, Divider, Grid, IconButton, InputAdornment, Modal, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react"
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from "dayjs";
-import Paginacao from "../components/paginacao/paginacao";
-
-
+import SearchIcon from '@mui/icons-material/Search';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import TabelaPodologo from "../components/tables/tabelaPodologo";
+import { GetItemLocalStorage } from "../helper/localStorage";
 const Podologo = () => {
-
-
-    // INICIO GET DE PODOLOGO
-
-    const [podologo, setPodologo] = useState<any[]>([]);
-
-    useEffect(() => {
-        fetchPodologo();
-    }, []);
-
-
-    function fetchPodologo() {
-        fetch("http://localhost:5000/api/podologo", {
-            method: "GET",
-            redirect: "follow"
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Falha em listar os Podologo');
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setPodologo(data);
-            })
-            .catch((error) => console.error(error));
-    }
-    // FIM GET DE PODOLOGO
 
     // INICIO SET DE PODOLOGO
     function salvarPodologo() {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
+        const token = GetItemLocalStorage('token');
+        myHeaders.append("Authorization", `Bearer ${token}`);
 
         const dataNascimento = dayjs(formData.dataNascimento).format('YYYY-MM-DD')
         // console.log("data nascimento", dataNascimento)
@@ -50,14 +25,17 @@ const Podologo = () => {
 
         const raw = JSON.stringify(newFormData);
 
-        fetch("http://localhost:5000/api/podologo", {
+        fetch("http://localhost:5000/podologo", {
 
             method: "POST",
             headers: myHeaders,
             body: raw,
         })
             .then((response) => response.text())
-            .then((result) => console.log(result))
+            .then((result) => {
+                console.log(result);
+                window.location.reload();
+            })
             .catch((error) => console.error(error));
 
 
@@ -118,7 +96,28 @@ const Podologo = () => {
 
     return (
         <>
-            <Button style={{ border: '1px solid #1976d2' }} onClick={handleOpen}>Cadastrar Podólogo</Button>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <Button sx={{ border: '1px solid #1976d2', width: '100%', height: '100%' }} onClick={handleOpen}>Cadastrar Podólogo</Button>
+                </Grid>
+            </Grid>
+            {/* <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <TextField
+                        sx={{ width: '100%', }}
+                        variant="outlined"
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                    <p>Pesquisar</p>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+
+                </Grid> */}
+
+
             <Modal
 
                 open={open}
@@ -147,7 +146,7 @@ const Podologo = () => {
                                     {/* <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Data Nascimento" variant="outlined" type="date" id="dataNascimento" name="dataNascimento" value={formData.dataNascimento} onChange={(event) => setData(event, 'data_nascimento')} /> */}
                                     <div style={{ margin: '0 0.2em', width: '100%' }}>
                                         <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                            <DatePicker name="dataNascimento" value={formData.dataNascimento} onChange={(event) => setData(event, 'dataNascimento')} />
+                                            <DatePicker format="DD/MM/YYYY" name="dataNascimento" value={formData.dataNascimento} onChange={(event) => setData(event, 'dataNascimento')} />
                                         </LocalizationProvider>
                                     </div>
                                     <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Gênero" variant="outlined" type="text" id="genero" name="genero" value={formData.genero} onChange={(event) => setInput(event, 'genero')} />
@@ -166,34 +165,7 @@ const Podologo = () => {
                 </Box>
             </Modal>
             <Divider style={{ margin: '1em 0' }} />
-            <Box sx={{ overflow: "auto" }}>
-                <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
-                    <Table>
-                        <TableHead style={{ backgroundColor: '#f2f2f2' }}>
-                            <TableRow>
-                                <TableCell className="tableCell">Nome</TableCell>
-                                <TableCell className="tableCell" align="right">CPF</TableCell>
-                                <TableCell className="tableCell" align="right">E-mail</TableCell>
-                                <TableCell className="tableCell" align="right">Data de Nascimento</TableCell>
-                                <TableCell className="tableCell" align="right">Gênero</TableCell>
-                                <TableCell className="tableCell" align="right">Endereço</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {podologo.map((podologo, index) => (
-                                <TableRow key={podologo.id}>
-                                    <TableCell className="tableCell" component="th" scope="row">{podologo.nome}</TableCell>
-                                    <TableCell className="tableCell" align="right">{podologo.cpf}</TableCell>
-                                    <TableCell className="tableCell" align="right">{podologo.email}</TableCell>
-                                    <TableCell className="tableCell" align="right">{podologo.dataNascimento}</TableCell>
-                                    <TableCell className="tableCell" align="right">{podologo.genero}</TableCell>
-                                    <TableCell className="tableCell" align="right">{podologo.endereco}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Box>
-            </Box>
+            <TabelaPodologo />
         </>
     )
 }

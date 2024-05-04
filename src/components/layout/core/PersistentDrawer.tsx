@@ -24,7 +24,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Diversity1 } from '@mui/icons-material';
-
+import ImagemLogo from './../../../images/logo-ext-white.png';
 
 interface Props {
     /**
@@ -114,7 +114,7 @@ export default function PersistentDrawerLeft(props: Props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <img style={{ width: '12em', ...(open && { display: 'none' })}} src="https://vestibular.sc.senac.br/img/brand/logo-ext-white.png" alt="..." />
+                    <img style={{ width: '12em', ...(open && { display: 'none' })}} src={ImagemLogo} alt="..." />
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -133,7 +133,7 @@ export default function PersistentDrawerLeft(props: Props) {
             >
                 <DrawerHeader style={{ backgroundColor: '#1976d2', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Toolbar style={{
-                        backgroundImage: 'url(https://vestibular.sc.senac.br/img/brand/logo-ext-white.png)',
+                        backgroundImage: `url(${ImagemLogo})`,
                         backgroundSize: 'cover', backgroundRepeat: 'no-repeat', width: '12.5em', margin: '0.5em'
                     }} />
                     <IconButton onClick={handleDrawerClose}>
