@@ -5,10 +5,10 @@ import { GetItemLocalStorage } from "../../../helper/localStorage";
 interface ModalEditarProps {
     openFicha: boolean;
     fichaClose: () => void;
-    id: number;
+    id_ficha: number;
 }
 
-const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id }) => {
+const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_ficha }) => {
 
 
     const [formData, setFormData] = useState({
@@ -74,61 +74,13 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id }
     const [fichas, setFichaState] = useState<any[]>([]);
 
     useEffect(() => {
-        fetchFichaUnico(id).then((data: any) => {
-            const ficha = data[0];
-    
-            const newFichaData = {
-                ...formData,
-                agendamento: ficha.agendamento,
-                paciente: ficha.paciente,
-                podologo: ficha.podologo,
-                genero: ficha.genero,
-                idade: ficha.idade,
-                estadoCivil: ficha.estadoCivil,
-                profissao: ficha.profissao,
-                posicaoTrabalho: ficha.posicaoTrabalho,
-                estatura: ficha.estatura,
-                peso: ficha.peso,
-                tipoCalcado: ficha.tipoCalcado,
-                tipoMeia: ficha.tipoMeia,
-                habitoAlimentar: ficha.habitoAlimentar,
-                medicamentoContinuo: ficha.medicamentoContinuo,
-                tipagemSanguinea: ficha.tipagemSanguinea,
-                doencasPreExistentes: ficha.doencasPreExistentes,
-                tratamentoPodologico: ficha.tratamentoPodologico,
-                cirurgiaInferiores: ficha.cirurgiaInferiores,
-                possuiAlergia: ficha.possuiAlergia,
-                amputacoes: ficha.amputacoes,
-                escalaDeDor: ficha.escalaDeDor,
-                pinosMarcapasso: ficha.pinosMarcapasso,
-                pressaoArterial: ficha.pressaoArterial,
-                perfusoesPe: ficha.perfusoesPe,
-                perfusoesPd: ficha.perfusoesPd,
-                digitoPressaoPE: ficha.digitoPressaoPE,
-                digitoPressaoPD: ficha.digitoPressaoPD,
-                formatoUnhasPE: ficha.formatoUnhasPE,
-                formatoUnhasPD: ficha.formatoUnhasPD,
-                formatoPePE: ficha.formatoPePE,
-                formatoPePD: ficha.formatoPePD,
-                testeMonofilamentoPE: ficha.testeMonofilamentoPE,
-                testeMonofilamentoPD: ficha.testeMonofilamentoPD,
-                etilista: ficha.etilista,
-                tabagista: ficha.tabagista,
-                praticaEsporte: ficha.praticaEsporte,
-                glicemia: ficha.glicemia,
-                gestante: ficha.gestante,
-                lactante: ficha.lactante
-            };
-    
-            setFormData(newFichaData);
-        }).catch((error) => {
-            console.error(error);
-        });
-    }, [id]);
-    
+        if (openFicha) {
+            fetchFichaUnico(id_ficha);
+        }
+    }, [openFicha, id_ficha]);
 
 
-    function fetchFichaUnico(id: number) {
+    function fetchFichaUnico(id_ficha: number) {
         const myHeaders = new Headers();
         const token = GetItemLocalStorage('token');
         myHeaders.append("Authorization", `Bearer ${token}`);
@@ -139,7 +91,7 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id }
         };
 
         // Retorna a Promise resultante da chamada fetch
-        return fetch(`http://localhost:5000/anamnese/?id=${id}`, requestOptions)
+        return fetch(`http://localhost:5000/anamnese/?id=${id_ficha}`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em buscar o a ficha');
@@ -147,6 +99,7 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id }
                 return response.json();
             })
             .then((data) => {
+                console.log(data)
                 setFichaState(data);
             })
             .catch((error) => {
@@ -185,7 +138,9 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id }
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     <div>
-                        <h4>Ficha Do(a) ''NOME PACIENTE''</h4>
+                        {fichas.map((ficha, index) => (
+                            <h4>Ficha Do(a) {ficha.paciente.nome}</h4>
+                        ))}
                     </div>
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -193,156 +148,157 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id }
                     <Box sx={{ flexGrow: 1 }} >
                         <FormControl fullWidth >
                             <form autoComplete="off" onSubmit={(event) => { event.preventDefault() }}>
-                                <Grid container spacing={2}>
-                                    {/* ------------------------INICIO DADOS PESSOAIS------------------------------ */}
+                                {fichas.map((ficha, index) => (
+                                    <Grid container spacing={2}>
+                                        {/* ------------------------INICIO DADOS PESSOAIS------------------------------ */}
 
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Gênero" sx={{ width: '100%' }} value={ficha.paciente.genero} onChange={(event) => setInput(event, 'genero')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Idade" sx={{ width: '100%' }} value={ficha.idade} onChange={(event) => setInput(event, 'idade')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Estado civíl" sx={{ width: '100%' }} value={ficha.estadoCivil} onChange={(event) => setInput(event, 'estadoCivil')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Profissão" sx={{ width: '100%' }} value={ficha.profissao} onChange={(event) => setInput(event, 'profissao')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Posição que trabalha" sx={{ width: '100%' }} value={ficha.posicaoTrabalho} onChange={(event) => setInput(event, 'posicaoTrabalho')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Estatura" sx={{ width: '100%' }} value={ficha.estatura} onChange={(event) => setInput(event, 'estatura')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Peso" sx={{ width: '100%' }} value={ficha.peso} onChange={(event) => setInput(event, 'peso')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Hábito alimentar" sx={{ width: '100%' }} value={ficha.habitoAlimentar} onChange={(event) => setInput(event, 'habitoAlimentar')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={4} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Medicamento de uso contínuo" sx={{ width: '100%' }} value={ficha.medicamentoContinuo} onChange={(event) => setInput(event, 'medicamentoContinuo')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={4} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Tipo de calçado que mais usa" sx={{ width: '100%' }} value={ficha.tipoCalcado} onChange={(event) => setInput(event, 'tipoCalcado')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={4} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Tipo de meia que mais usa" sx={{ width: '100%' }} value={ficha.tipoMeia} onChange={(event) => setInput(event, 'tipoMeia')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={2} md={4} sm={6} xs={12} >
+                                            <FormControlLabel required control={<Checkbox checked={ficha.praticaEsporte == 1} value={ficha.praticaEsporte} />} label="Pratica esporte" />
+                                        </Grid>
+                                        <Grid item lg={2} md={4} sm={6} xs={12} >
+                                                <FormControlLabel required control={<Checkbox checked={ficha.gestante == 1} value={ficha.gestante} />} label="Gestante" />
+                                        </Grid>
+                                        <Grid item lg={2} md={4} sm={6} xs={12} >
+                                            <FormControlLabel required control={<Checkbox checked={ficha.lactante == 1} value={ficha.lactante} />} label="Lactante" />
+                                        </Grid>
+                                        {/* ------------------------FIM DADOS PESSOAIS------------------------------ */}
 
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Gênero" sx={{ width: '100%' }} value={formData.genero} onChange={(event) => setInput(event, 'genero')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Idade" sx={{ width: '100%' }} value={formData.idade} onChange={(event) => setInput(event, 'idade')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Estado civíl" sx={{ width: '100%' }} value={formData.estadoCivil} onChange={(event) => setInput(event, 'estadoCivil')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Profissão" sx={{ width: '100%' }} value={formData.profissao} onChange={(event) => setInput(event, 'profissao')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Posição que trabalha" sx={{ width: '100%' }} value={formData.posicaoTrabalho} onChange={(event) => setInput(event, 'posicaoTrabalho')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Estatura" sx={{ width: '100%' }} value={formData.estatura} onChange={(event) => setInput(event, 'estatura')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Peso" sx={{ width: '100%' }} value={formData.peso} onChange={(event) => setInput(event, 'peso')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Hábito alimentar" sx={{ width: '100%' }} value={formData.habitoAlimentar} onChange={(event) => setInput(event, 'habitoAlimentar')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={4} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Medicamento de uso contínuo" sx={{ width: '100%' }} value={formData.medicamentoContinuo} onChange={(event) => setInput(event, 'medicamentoContinuo')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={4} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Tipo de calçado que mais usa" sx={{ width: '100%' }} value={formData.tipoCalcado} onChange={(event) => setInput(event, 'tipoCalcado')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={4} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Tipo de meia que mais usa" sx={{ width: '100%' }} value={formData.tipoMeia} onChange={(event) => setInput(event, 'tipoMeia')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={2} md={4} sm={6} xs={12} >
-                                        <FormControlLabel required control={<Checkbox value={formData.praticaEsporte} onChange={(event) => setInput(event, 'praticaEsporte')} />} label="Pratica esporte" />
-                                    </Grid>
-                                    <Grid item lg={2} md={4} sm={6} xs={12} >
-                                        <FormControlLabel required control={<Checkbox value={formData.gestante} onChange={(event) => setInput(event, 'gestante')} />} label="Gestante" />
-                                    </Grid>
-                                    <Grid item lg={2} md={4} sm={6} xs={12} >
-                                        <FormControlLabel required control={<Checkbox value={formData.lactante} onChange={(event) => setInput(event, 'lactante')} />} label="Lactante" />
-                                    </Grid>
-                                    {/* ------------------------FIM DADOS PESSOAIS------------------------------ */}
-
-                                    {/* ------------------------INICIO HISTORICO MEDICO------------------------------ */}
-                                    <Grid item lg={12} md={12} sm={12} xs={12} >
-                                        <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
-                                        <h3>Prontuário Médico</h3>
-
-                                    </Grid>
-
-                                    <Grid item lg={4} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Tipo sanguíneo" sx={{ width: '100%' }} value={formData.tipagemSanguinea} onChange={(event) => setInput(event, 'tipagemSanguinea')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={4} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Doenças preexistente" sx={{ width: '100%' }} value={formData.doencasPreExistentes} onChange={(event) => setInput(event, 'doencasPreExistentes')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={4} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Tratamentos podológicos" sx={{ width: '100%' }} value={formData.tratamentoPodologico} onChange={(event) => setInput(event, 'tratamentoPodologico')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={4} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Cirurgia em membros inferiores" sx={{ width: '100%' }} value={formData.cirurgiaInferiores} onChange={(event) => setInput(event, 'cirurgiaInferiores')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={4} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Possui alergias" sx={{ width: '100%' }} value={formData.possuiAlergia} onChange={(event) => setInput(event, 'possuiAlergia')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={4} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Amputações" sx={{ width: '100%' }} value={formData.amputacoes} onChange={(event) => setInput(event, 'amputacoes')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Escala de dor" sx={{ width: '100%' }} value={formData.escalaDeDor} onChange={(event) => setInput(event, 'escalaDeDor')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Pinos e/ou marcapasso" sx={{ width: '100%' }} value={formData.pinosMarcapasso} onChange={(event) => setInput(event, 'pinosMarcapasso')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Pressão arterial" sx={{ width: '100%' }} value={formData.pressaoArterial} onChange={(event) => setInput(event, 'pressaoArterial')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={3} md={6} sm={12} xs={12} >
-                                        <TextField margin="none" label="Glicemia" sx={{ width: '100%' }} value={formData.glicemia} onChange={(event) => setInput(event, 'glicemia')}></TextField>
-                                    </Grid>
-                                    <Grid item lg={2} md={4} sm={6} xs={12} >
-                                        <FormControlLabel required control={<Checkbox value={formData.etilista} onChange={(event) => setInput(event, 'etilista')} />} label="Etilista" />
-                                    </Grid>
-                                    <Grid item lg={2} md={4} sm={6} xs={12} >
-                                        <FormControlLabel required control={<Checkbox value={formData.tabagista} onChange={(event) => setInput(event, 'tabagista')} />} label="Tabagista" />
-                                    </Grid>
-
-                                    <Grid item lg={12} md={12} sm={12} xs={12} >
-                                        <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
-                                    </Grid>
-
-                                    <Grid item lg={6} md={6} sm={12} xs={12} >
+                                        {/* ------------------------INICIO HISTORICO MEDICO------------------------------ */}
                                         <Grid item lg={12} md={12} sm={12} xs={12} >
-                                            <h3>Pé Esquerdo</h3>
-                                        </Grid>
-                                        <Grid item lg={12} md={12} sm={12} xs={12}>
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={formData.perfusoesPe} onChange={(event) => setInput(event, 'perfusoesPe')}></TextField>
-                                            </Grid>
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Digito de pressão pé esquerdo" sx={{ width: '100%' }} value={formData.digitoPressaoPE} onChange={(event) => setInput(event, 'digitoPressaoPE')}></TextField>
-                                            </Grid>
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Formato unhas pé esquerdo" sx={{ width: '100%' }} value={formData.formatoUnhasPE} onChange={(event) => setInput(event, 'formatoUnhasPE')}></TextField>
-                                            </Grid>
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Formato pé esquerdo" sx={{ width: '100%' }} value={formData.formatoPePE} onChange={(event) => setInput(event, 'formatoPePE')}></TextField>
-                                            </Grid>
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Teste monofilamento pé esquerdo" sx={{ width: '100%' }} value={formData.testeMonofilamentoPE} onChange={(event) => setInput(event, 'testeMonofilamentoPE')}></TextField>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
+                                            <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
+                                            <h3>Prontuário Médico</h3>
 
-                                    <Grid item lg={6} md={6} sm={12} xs={12} >
+                                        </Grid>
+
+                                        <Grid item lg={4} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Tipo sanguíneo" sx={{ width: '100%' }} value={ficha.tipagemSanguinea} onChange={(event) => setInput(event, 'tipagemSanguinea')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={4} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Doenças preexistente" sx={{ width: '100%' }} value={ficha.doencasPreExistentes} onChange={(event) => setInput(event, 'doencasPreExistentes')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={4} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Tratamentos podológicos" sx={{ width: '100%' }} value={ficha.tratamentoPodologico} onChange={(event) => setInput(event, 'tratamentoPodologico')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={4} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Cirurgia em membros inferiores" sx={{ width: '100%' }} value={ficha.cirurgiaInferiores} onChange={(event) => setInput(event, 'cirurgiaInferiores')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={4} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Possui alergias" sx={{ width: '100%' }} value={ficha.possuiAlergia} onChange={(event) => setInput(event, 'possuiAlergia')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={4} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Amputações" sx={{ width: '100%' }} value={ficha.amputacoes} onChange={(event) => setInput(event, 'amputacoes')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Escala de dor" sx={{ width: '100%' }} value={ficha.escalaDeDor} onChange={(event) => setInput(event, 'escalaDeDor')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Pinos e/ou marcapasso" sx={{ width: '100%' }} value={ficha.pinosMarcapasso} onChange={(event) => setInput(event, 'pinosMarcapasso')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Pressão arterial" sx={{ width: '100%' }} value={ficha.pressaoArterial} onChange={(event) => setInput(event, 'pressaoArterial')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={3} md={6} sm={12} xs={12} >
+                                            <TextField margin="none" label="Glicemia" sx={{ width: '100%' }} value={ficha.glicemia} onChange={(event) => setInput(event, 'glicemia')}></TextField>
+                                        </Grid>
+                                        <Grid item lg={2} md={4} sm={6} xs={12} >
+                                            <FormControlLabel required control={<Checkbox checked={ficha.etilista == 1} value={ficha.etilista} />} label="Etilista" />
+                                        </Grid>
+                                        <Grid item lg={2} md={4} sm={6} xs={12} >
+                                            <FormControlLabel required control={<Checkbox checked={ficha.tabagista == 1} value={ficha.tabagista} />} label="Tabagista" />
+                                        </Grid>
+
                                         <Grid item lg={12} md={12} sm={12} xs={12} >
-                                            <h3>Pé Direito</h3>
+                                            <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
                                         </Grid>
-                                        <Grid item lg={12} md={12} sm={12} xs={12}>
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={formData.perfusoesPd} onChange={(event) => setInput(event, 'perfusoesPd')}></TextField>
-                                            </Grid>
 
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Digito de pressão pé direito" sx={{ width: '100%' }} value={formData.digitoPressaoPD} onChange={(event) => setInput(event, 'digitoPressaoPD')}></TextField>
+                                        <Grid item lg={6} md={6} sm={12} xs={12} >
+                                            <Grid item lg={12} md={12} sm={12} xs={12} >
+                                                <h3>Pé Esquerdo</h3>
                                             </Grid>
-
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Formato unhas pé direito" sx={{ width: '100%' }} value={formData.formatoUnhasPD} onChange={(event) => setInput(event, 'formatoUnhasPD')}></TextField>
-                                            </Grid>
-
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Formato pé direito" sx={{ width: '100%' }} value={formData.formatoPePD} onChange={(event) => setInput(event, 'formatoPePD')}></TextField>
-                                            </Grid>
-
-                                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                                <TextField margin="none" label="Teste monofilamento pé direito" sx={{ width: '100%' }} value={formData.testeMonofilamentoPD} onChange={(event) => setInput(event, 'testeMonofilamentoPD')}></TextField>
+                                            <Grid item lg={12} md={12} sm={12} xs={12}>
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={ficha.perfusoesPe} onChange={(event) => setInput(event, 'perfusoesPe')}></TextField>
+                                                </Grid>
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Digito de pressão pé esquerdo" sx={{ width: '100%' }} value={ficha.digitoPressaoPE} onChange={(event) => setInput(event, 'digitoPressaoPE')}></TextField>
+                                                </Grid>
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Formato unhas pé esquerdo" sx={{ width: '100%' }} value={ficha.formatoUnhasPE} onChange={(event) => setInput(event, 'formatoUnhasPE')}></TextField>
+                                                </Grid>
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Formato pé esquerdo" sx={{ width: '100%' }} value={ficha.formatoPePE} onChange={(event) => setInput(event, 'formatoPePE')}></TextField>
+                                                </Grid>
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Teste monofilamento pé esquerdo" sx={{ width: '100%' }} value={ficha.testeMonofilamentoPE} onChange={(event) => setInput(event, 'testeMonofilamentoPE')}></TextField>
+                                                </Grid>
                                             </Grid>
                                         </Grid>
+
+                                        <Grid item lg={6} md={6} sm={12} xs={12} >
+                                            <Grid item lg={12} md={12} sm={12} xs={12} >
+                                                <h3>Pé Direito</h3>
+                                            </Grid>
+                                            <Grid item lg={12} md={12} sm={12} xs={12}>
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={ficha.perfusoesPd} onChange={(event) => setInput(event, 'perfusoesPd')}></TextField>
+                                                </Grid>
+
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Digito de pressão pé direito" sx={{ width: '100%' }} value={ficha.digitoPressaoPD} onChange={(event) => setInput(event, 'digitoPressaoPD')}></TextField>
+                                                </Grid>
+
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Formato unhas pé direito" sx={{ width: '100%' }} value={ficha.formatoUnhasPD} onChange={(event) => setInput(event, 'formatoUnhasPD')}></TextField>
+                                                </Grid>
+
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Formato pé direito" sx={{ width: '100%' }} value={ficha.formatoPePD} onChange={(event) => setInput(event, 'formatoPePD')}></TextField>
+                                                </Grid>
+
+                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                    <TextField margin="none" label="Teste monofilamento pé direito" sx={{ width: '100%' }} value={ficha.testeMonofilamentoPD} onChange={(event) => setInput(event, 'testeMonofilamentoPD')}></TextField>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+
+                                        {/* ------------------------FIM HISTORICO MEDICO------------------------------ */}
+
+
                                     </Grid>
-
-                                    {/* ------------------------FIM HISTORICO MEDICO------------------------------ */}
-
-
-                                </Grid>
+                                ))}
                                 <Grid container spacing={2}  >
                                     <Grid item lg={12} md={12} sm={12} xs={12} >
                                         {/* <Button style={{ border: '1px solid #1976d2' }} onClick={salvarAnamnese}>Cadastrar</Button> */}

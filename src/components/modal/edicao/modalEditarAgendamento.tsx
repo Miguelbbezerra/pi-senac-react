@@ -123,7 +123,7 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
         })
             .then((response) => response.text())
             .then((result) => {
-                console.log(result);
+                // console.log(result);
                 window.location.reload();
             })
             .catch((error) => console.error(error));
@@ -144,10 +144,10 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
         const fetchData = async () => {
             try {
                 const agendamentos = await fetchAgendamentoUnico(id);
-                console.log("Paciente retornado:", agendamentos); // Verifica o que está sendo retornado
+                // console.log("Paciente retornado:", agendamentos);
                 if (agendamentos && agendamentos.length > 0) {
                     const agendamento = agendamentos[0]; // Acessa o primeiro agendamento no array
-                    console.log("agendamento selecionado:", agendamento); // Verifica o selecionado
+                    // console.log("agendamento selecionado:", agendamento);
 
                     const newPacAndPod = {
                         ...pacAndPod,

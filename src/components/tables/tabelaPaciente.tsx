@@ -4,6 +4,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import ModalEditarPaciente from "../modal/edicao/modalEditarPaciente";
+import ModalDeletePaciente from "../modal/delete/modalDeletePaciente";
 
 
 const TabelaPaciente = () => {
@@ -44,7 +45,7 @@ const TabelaPaciente = () => {
 
     // FIM GET DE PACIENTES
 
-
+// OPEN MODAL EDIT
     const [openEdit, setOpenEdit] = useState<boolean>(false);
 
     const EditOpen = () => {
@@ -53,6 +54,17 @@ const TabelaPaciente = () => {
 
     const EditClose = () => {
         setOpenEdit(false);
+    };
+// OPEN MODAL DELETE
+
+    const [openDelete, setOpenDelete] = useState<boolean>(false);
+
+    const DeleteOpen = () => {
+        setOpenDelete(true);
+    };
+
+    const DeleteClose = () => {
+        setOpenDelete(false);
     };
     return (
         <Box sx={{ overflow: "auto" }}>
@@ -82,9 +94,10 @@ const TabelaPaciente = () => {
                                 <TableCell>{paciente.endereco}</TableCell>
                                 <TableCell>
                                     <IconButton color="primary" onClick={EditOpen}><BorderColorIcon /></IconButton>
-                                    <IconButton color="error"><DeleteForeverIcon /></IconButton>
+                                    <IconButton color="error" onClick={DeleteOpen}><DeleteForeverIcon /></IconButton>
                                 </TableCell>
                                 <ModalEditarPaciente openFicha={openEdit} fichaClose={EditClose} id={paciente.id} />
+                                <ModalDeletePaciente openFicha={openDelete} fichaClose={DeleteClose} id={paciente.id} />
                             </TableRow>
                         ))}
                     </TableBody>

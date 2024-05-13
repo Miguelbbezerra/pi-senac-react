@@ -38,7 +38,7 @@ const TabelaAgendamento = () => {
                 return response.json();
             })
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 setAgendamento(data);
             })
             .catch((error) => console.error(error));
@@ -105,7 +105,7 @@ const TabelaAgendamento = () => {
                                             <PostAddIcon />
                                         </IconButton>
                                     ) : (
-                                        <IconButton color="secondary" onClick={() => window.location.href = `/admin/ficha/?ida=${agendamento.id}&idpa=${agendamento.paciente.id}&idpo=${agendamento.podologo.id}`}>
+                                        <IconButton color="secondary" onClick={() => window.location.href = `/admin/ficha/?ida=${agendamento.id}&idpa=${agendamento.paciente}&idpo=${agendamento.podologo}`}>
                                             <PostAddIcon />
                                         </IconButton>
                                     )}
@@ -114,7 +114,7 @@ const TabelaAgendamento = () => {
                                     <IconButton color="error"><DeleteForeverIcon /></IconButton>
                                 </TableCell>
                                 <ModalEditarAgendamento openFicha={openEdit} fichaClose={EditClose} id={agendamento.id} />
-                                <ModalVerFicha openFicha={openAnamnese} fichaClose={AnamneseClose} id={agendamento.anamnese.id} />
+                                <ModalVerFicha openFicha={openAnamnese} fichaClose={AnamneseClose} id_ficha={agendamento.anamnese.id} />
                             </TableRow>
                         ))}
 

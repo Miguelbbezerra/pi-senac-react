@@ -104,7 +104,7 @@ const ModalAgendamento = () => {
         fetch("http://localhost:5000/agendamento", requestOptions)
             .then((response) => response.text())
             .then((result) => {
-                console.log(result);
+                // console.log(result);
                 window.location.reload();
             })
             .catch((error) => console.error(error));
