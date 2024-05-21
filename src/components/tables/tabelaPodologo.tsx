@@ -4,6 +4,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import ModalEditarPodologo from "../modal/edicao/modalEditarPodologo";
+import ModalDelete from "../modal/delete/modalDelete";
 
 
 
@@ -53,6 +54,18 @@ const TabelaPodologo = () => {
         setOpenEdit(false);
     };
 
+    // OPEN MODAL DELETE
+
+    const [openDelete, setOpenDelete] = useState<boolean>(false);
+
+    const DeleteOpen = () => {
+        setOpenDelete(true);
+    };
+
+    const DeleteClose = () => {
+        setOpenDelete(false);
+    };
+
     return (
         <Box sx={{ overflow: "auto" }}>
             <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
@@ -81,9 +94,10 @@ const TabelaPodologo = () => {
                                 <TableCell>{podologo.endereco}</TableCell>
                                 <TableCell >
                                     <IconButton color="primary" onClick={EditOpen}><BorderColorIcon /></IconButton>
-                                    <IconButton color="error"><DeleteForeverIcon /></IconButton>
+                                    <IconButton color="error" onClick={DeleteOpen}><DeleteForeverIcon /></IconButton>
                                 </TableCell>
                                 <ModalEditarPodologo openFicha={openEdit} fichaClose={EditClose} id={podologo.id} />
+                                <ModalDelete openFicha={openDelete} fichaClose={DeleteClose} id={podologo.id} tabela="podologo" />
                             </TableRow>
                         ))}
                     </TableBody>

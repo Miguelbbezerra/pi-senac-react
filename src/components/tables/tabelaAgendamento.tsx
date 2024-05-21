@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import ModalEditarAgendamento from "../modal/edicao/modalEditarAgendamento";
 import ModalVerFicha from "../modal/ficha/modalVerFicha";
+import ModalDelete from "../modal/delete/modalDelete";
 
 const TabelaAgendamento = () => {
 
@@ -69,7 +70,17 @@ const TabelaAgendamento = () => {
     };
     // OPEN FICHA
 
+    // OPEN MODAL DELETE
 
+    const [openDelete, setOpenDelete] = useState<boolean>(false);
+
+    const DeleteOpen = () => {
+        setOpenDelete(true);
+    };
+
+    const DeleteClose = () => {
+        setOpenDelete(false);
+    };
 
     return (
         <Box sx={{ overflow: "auto" }}>
@@ -111,10 +122,11 @@ const TabelaAgendamento = () => {
                                     )}
 
                                     <IconButton color="primary" onClick={EditOpen}><BorderColorIcon /></IconButton>
-                                    <IconButton color="error"><DeleteForeverIcon /></IconButton>
+                                    <IconButton color="error" onClick={DeleteOpen}><DeleteForeverIcon /></IconButton>
                                 </TableCell>
                                 <ModalEditarAgendamento openFicha={openEdit} fichaClose={EditClose} id={agendamento.id} />
-                                <ModalVerFicha openFicha={openAnamnese} fichaClose={AnamneseClose} id_ficha={agendamento.anamnese.id} />
+                                <ModalVerFicha openFicha={openAnamnese} fichaClose={AnamneseClose} id_ficha={agendamento.anamnese_id} />
+                                <ModalDelete openFicha={openDelete} fichaClose={DeleteClose} id={agendamento.id} tabela="agendamento" />
                             </TableRow>
                         ))}
 

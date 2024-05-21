@@ -6,7 +6,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -16,16 +15,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { Link, Outlet } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Diversity1 } from '@mui/icons-material';
 import ImagemLogo from './../../../images/logo-ext-white.png';
-
+import { Button } from '@mui/material';
+import { DeleteItemLocalStorage } from '../../../helper/localStorage';
+import { useNavigate } from 'react-router-dom';
 interface Props {
     /**
      * Injected by the documentation to work in an iframe.
@@ -88,7 +88,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft(props: Props) {
-    const { window, children } = props;
+    const { children } = props;
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -100,11 +100,27 @@ export default function PersistentDrawerLeft(props: Props) {
         setOpen(false);
     };
 
+    const navigate = useNavigate();
+    //FUNCAO DE LOGOUT
+    async function logOut() {
+        try {
+            console.log('teste entrou')
+
+            await DeleteItemLocalStorage('token')
+
+            navigate('/');
+        } catch (error) {
+            console.warn(error)
+        }
+
+    }
+    //FUNCAO DE LOGOUT
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
-                <Toolbar sx={{ width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+                <Toolbar sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -114,7 +130,7 @@ export default function PersistentDrawerLeft(props: Props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <img style={{ width: '12em', ...(open && { display: 'none' })}} src={ImagemLogo} alt="..." />
+                    <img style={{ width: '12em', ...(open && { display: 'none' }) }} src={ImagemLogo} alt="..." />
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -125,7 +141,7 @@ export default function PersistentDrawerLeft(props: Props) {
                         width: drawerWidth,
                         boxSizing: 'border-box',
                     },
-                    
+
                 }}
                 variant="persistent"
                 anchor="left"
@@ -141,7 +157,7 @@ export default function PersistentDrawerLeft(props: Props) {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <List style={{ color: '#f2f2f2', height: '100%', backgroundColor: '#2e2f47'}}>
+                <List style={{ color: '#f2f2f2', height: '100%', backgroundColor: '#2e2f47' }}>
                     {[{ texto: 'Home', Icon: HomeIcon, route: '/admin/home' }, { texto: 'Agendamentos', Icon: CalendarMonthIcon, route: '/admin/agendamento' }, { texto: 'Pacientes', Icon: GroupIcon, route: '/admin/paciente' }, { texto: 'Podólogos', Icon: Diversity1, route: '/admin/podologo' }, { texto: 'Perfil', Icon: AccountCircleIcon, route: '/admin/perfil' }].map((item, index) => (
                         <ListItem key={item.texto} disablePadding>
                             <Link to={item.route} style={{ textDecoration: 'none', color: '#f2f2f2', width: '100%' }}>
@@ -154,9 +170,13 @@ export default function PersistentDrawerLeft(props: Props) {
                             </Link>
                         </ListItem>
                     ))}
+                    <Divider sx={{ margin: '1em 0.5em', background: '#FFF' }} />
+                    <div style={{ display: 'flex', justifyContent: 'left' }}>
+                        <Button type='button' onClick={logOut} sx={{ color: '#fff' }}><LogoutIcon sx={{ margin: '0 0.5em' }} /> Log Out</Button>
+                    </div>
                 </List>
                 <Divider />
-                
+
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />

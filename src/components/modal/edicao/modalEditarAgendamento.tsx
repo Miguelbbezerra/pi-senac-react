@@ -262,11 +262,6 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
                                         onChange={(event) => setInput(event, 'paciente')}
                                     >
                                         <MenuItem disabled selected value={formData.paciente}>{pacAndPod.pacienteNomeSelected}</MenuItem>
-                                        {/* {pacientes.map((paciente) => (
-                                             paciente.id !== formData.paciente && (
-                                                <MenuItem key={paciente.id} value={paciente.id}>{paciente.nome}</MenuItem>
-                                            )
-                                        ))} */}
                                     </Select>
                                 </FormControl>
 
@@ -285,11 +280,6 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
                                     >
                                         
                                         <MenuItem disabled selected value={formData.podologo}>{pacAndPod.podologoNomeSelected}</MenuItem>
-                                        {/* {podologos.map((podologo) => (
-                                             podologo.id !== formData.podologo && (
-                                                <MenuItem key={podologo.id} value={podologo.id}>{podologo.nomeCompleto}</MenuItem>
-                                            )
-                                        ))} */}
                                     </Select>
                                 </FormControl>
                             </Grid>

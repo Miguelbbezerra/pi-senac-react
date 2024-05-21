@@ -5,9 +5,10 @@ interface ModalDeleteProps {
     openFicha: boolean;
     fichaClose: () => void;
     id: number;
+    tabela: string;
 }
 
-const ModalDeletePaciente: React.FC<ModalDeleteProps> = ({ openFicha, fichaClose, id }) => {
+const ModalDelete: React.FC<ModalDeleteProps> = ({ openFicha, fichaClose, id, tabela }) => {
     const style = {
         position: 'absolute' as 'absolute',
         top: '50%',
@@ -32,7 +33,7 @@ const ModalDeletePaciente: React.FC<ModalDeleteProps> = ({ openFicha, fichaClose
         cursor: 'pointer'
     }
 
-    const fetchDeletePacienteUnico = (id: number) => {
+    const fetchDeleteUnico = (id: number) => {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         const token = GetItemLocalStorage('token');
@@ -48,7 +49,7 @@ const ModalDeletePaciente: React.FC<ModalDeleteProps> = ({ openFicha, fichaClose
             body: raw
           };
           
-          fetch(`http://localhost:5000/paciente/delete/${id}`, requestOptions)
+          fetch(`http://localhost:5000/${tabela}/delete/${id}`, requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 window.location.reload();
@@ -66,11 +67,11 @@ const ModalDeletePaciente: React.FC<ModalDeleteProps> = ({ openFicha, fichaClose
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     <div>
-                        <h4>Tem certeza que deseja deletar esse paciente?</h4>
+                        <h4>Tem certeza que deseja deletar {tabela}?</h4>
                         <Divider sx={{ margin: '1em 0' }} />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', position: 'fixed', bottom: '0', left: '0', width: '100%' }}>
-                        <button type="button" style={{ ...btn, backgroundColor: '#CA3433', color: 'white' }} onClick={() => fetchDeletePacienteUnico((id))}>Deletar</button>
+                        <button type="button" style={{ ...btn, backgroundColor: '#CA3433', color: 'white' }} onClick={() => fetchDeleteUnico((id))}>Deletar</button>
                         <button type="button" style={{ ...btn, backgroundColor: '#0f52ba', color: 'white' }} onClick={fichaClose}>Fechar</button>
                     </div>
                 </Typography>
@@ -78,4 +79,4 @@ const ModalDeletePaciente: React.FC<ModalDeleteProps> = ({ openFicha, fichaClose
         </Modal>
     )
 }
-export default ModalDeletePaciente
+export default ModalDelete

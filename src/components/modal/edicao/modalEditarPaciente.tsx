@@ -60,7 +60,7 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
 
     // inicio GET DE PACIENTES
 
-    const [pacientes, setPacientes] = useState<any[]>([]);
+    // const [pacientes, setPacientes] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -121,18 +121,6 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
 
     // FIM GET DE PACIENTES
 
-    // const setData = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: string) => {
-    //     // Verifica se o evento possui um valor e se é uma string
-    //     if (event.target && typeof event.target.value === 'string') {
-    //         // Assume que o valor do evento é uma data no formato esperado
-    //         const value = event.target.value;
-    //         const newFormData = { ...formData, [key]: value };
-    //         setFormData(newFormData);
-    //     } else {
-    //         console.error('Evento inválido ou sem valor.');
-    //     }
-    // }
-
     const setInput = (event: any, key: string) => {
 
         const value = event.target.value
@@ -162,7 +150,7 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     <div>
-                        <h4>Cadastro de Paciente</h4>
+                        <h4>Editar Paciente</h4>
                     </div>
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>

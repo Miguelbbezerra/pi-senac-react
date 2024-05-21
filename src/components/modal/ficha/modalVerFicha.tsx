@@ -9,8 +9,6 @@ interface ModalEditarProps {
 }
 
 const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_ficha }) => {
-
-
     const [formData, setFormData] = useState({
         agendamento: "",
         paciente: "",

@@ -4,7 +4,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import ModalEditarPaciente from "../modal/edicao/modalEditarPaciente";
-import ModalDeletePaciente from "../modal/delete/modalDeletePaciente";
+import ModalDelete from "../modal/delete/modalDelete";
 
 
 const TabelaPaciente = () => {
@@ -29,7 +29,7 @@ const TabelaPaciente = () => {
             headers: myHeaders,
         };
 
-        fetch("http://localhost:5000/paciente", requestOptions)
+        fetch(`http://localhost:5000/paciente`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Pacientes');
@@ -37,7 +37,6 @@ const TabelaPaciente = () => {
                 return response.json();
             })
             .then((data) => {
-                // console.log(data)
                 setPacientes(data);
             })
             .catch((error) => console.error(error));
@@ -45,7 +44,7 @@ const TabelaPaciente = () => {
 
     // FIM GET DE PACIENTES
 
-// OPEN MODAL EDIT
+    // OPEN MODAL EDIT
     const [openEdit, setOpenEdit] = useState<boolean>(false);
 
     const EditOpen = () => {
@@ -55,7 +54,7 @@ const TabelaPaciente = () => {
     const EditClose = () => {
         setOpenEdit(false);
     };
-// OPEN MODAL DELETE
+    // OPEN MODAL DELETE
 
     const [openDelete, setOpenDelete] = useState<boolean>(false);
 
@@ -97,7 +96,7 @@ const TabelaPaciente = () => {
                                     <IconButton color="error" onClick={DeleteOpen}><DeleteForeverIcon /></IconButton>
                                 </TableCell>
                                 <ModalEditarPaciente openFicha={openEdit} fichaClose={EditClose} id={paciente.id} />
-                                <ModalDeletePaciente openFicha={openDelete} fichaClose={DeleteClose} id={paciente.id} />
+                                <ModalDelete openFicha={openDelete} fichaClose={DeleteClose} id={paciente.id} tabela="paciente" />
                             </TableRow>
                         ))}
                     </TableBody>

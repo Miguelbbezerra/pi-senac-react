@@ -60,8 +60,6 @@ const ModalEditarPodologo: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
 
     // inicio GET DE PODOLOGOS
 
-    const [podologos, setPodologos] = useState<any[]>([]);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -150,7 +148,7 @@ const ModalEditarPodologo: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
             <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     <div>
-                        <h4>Cadastro de Paciente</h4>
+                        <h4>Editar Podólogo(a)</h4>
                     </div>
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
