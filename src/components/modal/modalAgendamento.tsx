@@ -27,7 +27,7 @@ const ModalAgendamento = () => {
             method: "GET",
             headers: myHeaders,
         };
-        
+
         fetch("http://localhost:5000/paciente", requestOptions)
             .then((response) => {
                 if (!response.ok) {
@@ -55,7 +55,7 @@ const ModalAgendamento = () => {
             method: "GET",
             headers: myHeaders,
         };
-        
+
         fetch("http://localhost:5000/podologo", requestOptions)
             .then((response) => {
                 if (!response.ok) {
@@ -119,8 +119,8 @@ const ModalAgendamento = () => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: '60%',
-        height: '60%',
+        width: '80%',
+        height: '100%',
         bgcolor: 'background.paper',
         border: '2px solid #1976d2',
         borderRadius: '0.5em',
@@ -158,15 +158,10 @@ const ModalAgendamento = () => {
     return (
         <>
             <Grid container spacing={2}>
-                <Grid item xs={6} sm={6} md={6} lg={6}>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
                     <Button style={{ border: '1px solid #1976d2', width: '100%', height: '100%' }} onClick={handleOpen}>Agendar</Button>
                 </Grid>
-                {/* <Grid item xs={6} sm={6} md={3} lg={3}>
-                    <Button style={{ border: '1px solid #1976d2', width: '100%', height: '100%' }}>
-                        <Link to='../ficha' style={{ textDecoration: 'none', color: '#1976d2', width: '100%' }}>Ficha de Anamnese</Link>
-                    </Button>
-                </Grid> */}
-                    <InputPesquisar />
+                <InputPesquisar />
             </Grid>
             <Modal
 
@@ -186,8 +181,8 @@ const ModalAgendamento = () => {
                             <Divider style={{ margin: '1em 0' }} />
                             <form autoComplete="off" onSubmit={(event) => { event.preventDefault() }}>
 
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
+                                <Grid container spacing={3}>
+                                    <Grid item lg={6} md={12} sm={12} xs={12}>
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">Pacientes</InputLabel>
                                             <Select
@@ -202,6 +197,8 @@ const ModalAgendamento = () => {
                                                 ))}
                                             </Select>
                                         </FormControl>
+                                    </Grid>
+                                    <Grid item lg={6} md={12} sm={12} xs={12}>
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-labelP">Podologo(a)</InputLabel>
                                             <Select
@@ -216,13 +213,15 @@ const ModalAgendamento = () => {
                                                 ))}
                                             </Select>
                                         </FormControl>
+                                    </Grid>
 
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
+                                    <Grid item lg={6} md={12} sm={12} xs={12}>
                                         <TextField style={{ width: '100%' }} type="date" id="data" name="data" value={formData.data} onChange={(event) => setInput(event, 'data')} />
+                                    </Grid>
+                                    <Grid item lg={6} md={12} sm={12} xs={12}>
                                         <TextField style={{ width: '100%' }} type="time" id="hora" name="hora" value={formData.hora} onChange={(event) => setInput(event, 'hora')} />
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
+                                    </Grid>
+                                    <Grid item lg={12} md={12} sm={12} xs={12}>
                                         <TextField style={{ width: '100%' }}
                                             id="descricao outlined-multiline-static"
                                             label="Descrição"
@@ -231,13 +230,11 @@ const ModalAgendamento = () => {
                                             value={formData.descricao}
                                             onChange={(event) => setInput(event, 'descricao')}
                                         />
-                                    </div>
-                                </div>
-
-                                <Divider style={{ margin: '1em 0' }} />
-
-                                <Button style={{ border: '1px solid #1976d2' }} type="submit" onClick={salvarAgendamento} id="submit-form">Enviar</Button>
-
+                                    </Grid>
+                                    <Grid item lg={12} md={12} sm={12} xs={12}>
+                                        <Button style={{ border: '1px solid #1976d2' }} type="submit" onClick={salvarAgendamento} id="submit-form">Enviar</Button>
+                                    </Grid>
+                                </Grid>
                             </form>
                         </div>
                     </Typography>

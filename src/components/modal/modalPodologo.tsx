@@ -5,6 +5,7 @@ import { GetItemLocalStorage } from "../../helper/localStorage";
 import dayjs from "dayjs";
 import { useState } from "react";
 import InputPesquisar from "../pesquisar";
+import { CPFMaskInput, PhoneMaskInput } from "../mask/MaskInput";
 
 const ModalPodologo = () => {
 
@@ -78,7 +79,7 @@ const ModalPodologo = () => {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: '80%',
-        height: '70%',
+        height: '100%',
         bgcolor: 'background.paper',
         border: '2px solid #1976d2',
         borderRadius: '0.5em',
@@ -116,31 +117,37 @@ const ModalPodologo = () => {
                     <Divider style={{ margin: '1em 0' }} />
 
                     <form autoComplete="off" onSubmit={(event) => { event.preventDefault() }}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
+                        <Grid container spacing={3}>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
                                 <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Nome Completo" variant="outlined" type="text" id="nome" name="nome" value={formData.nomeCompleto} onChange={(event) => setInput(event, 'nomeCompleto')} />
-                                <TextField style={{ margin: '0 0.2em', width: '100%' }} label="CPF" variant="outlined" type="text" id="cpf" name="cpf" value={formData.cpf} onChange={(event) => setInput(event, 'cpf')} />
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
+                                <TextField style={{ margin: '0 0.2em', width: '100%' }} label="CPF" variant="outlined" type="text" id="cpf" name="cpf" value={formData.cpf} onChange={(event) => setInput(event, 'cpf')} InputProps={{ inputComponent: CPFMaskInput as any }} />
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
                                 <TextField style={{ margin: '0 0.2em', width: '100%' }} label="E-mail" variant="outlined" type="text" id="email" name="email" value={formData.email} onChange={(event) => setInput(event, 'email')} />
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
-                                <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Telefone" variant="outlined" type="text" id="telefone" name="telefone" value={formData.telefone} onChange={(event) => setInput(event, 'telefone')} />
-                                {/* <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Data Nascimento" variant="outlined" type="date" id="dataNascimento" name="dataNascimento" value={formData.dataNascimento} onChange={(event) => setData(event, 'data_nascimento')} /> */}
-                                <div style={{ margin: '0 0.2em', width: '100%' }}>
-                                    <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                        <DatePicker format="DD/MM/YYYY" name="dataNascimento" value={formData.dataNascimento} onChange={(event) => setData(event, 'dataNascimento')} />
-                                    </LocalizationProvider>
-                                </div>
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
+                                <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Telefone" variant="outlined" type="text" id="telefone" name="telefone" value={formData.telefone} onChange={(event) => setInput(event, 'telefone')} InputProps={{ inputComponent: PhoneMaskInput as any }} />
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                    <DatePicker sx={{ width: '100%'}} format="DD/MM/YYYY" name="dataNascimento" value={formData.dataNascimento} onChange={(event) => setData(event, 'dataNascimento')} />
+                                </LocalizationProvider>
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
                                 <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Gênero" variant="outlined" type="text" id="genero" name="genero" value={formData.genero} onChange={(event) => setInput(event, 'genero')} />
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
                                 <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Endereço" variant="outlined" type="text" id="endereco" name="endereco" value={formData.endereco} onChange={(event) => setInput(event, 'endereco')} />
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'row', margin: '1em 0' }}>
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
                                 <TextField style={{ margin: '0 0.2em', width: '100%' }} label="Senha" variant="outlined" type="password" id="senha" name="senha" value={formData.senha} onChange={(event) => setInput(event, 'senha')} />
-                            </div>
-                        </div>
-
-                        <Divider style={{ margin: '1em 0' }} />
-
-                        <Button style={{ border: '1px solid #1976d2' }} type="button" onClick={salvarPodologo} id="submit-form">Enviar</Button>
+                            </Grid>
+                            <Grid item lg={6} md={6} sm={12} xs={12}>
+                                <Button style={{ border: '1px solid #1976d2' }} type="button" onClick={salvarPodologo} id="submit-form">Enviar</Button>
+                            </Grid>
+                        </Grid>
                     </form>
                 </Typography>
             </Box>

@@ -5,6 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import InputPesquisar from "../pesquisar";
 import { GetItemLocalStorage } from "../../helper/localStorage";
+import {CPFMaskInput, PhoneMaskInput} from "../mask/MaskInput";
 
 const ModalPaciente = () => {
 
@@ -82,6 +83,20 @@ const ModalPaciente = () => {
     const handleClose = () => setOpen(false);
 
     // FIM COD MODAL
+    
+    const style = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '80%',
+        height: '100%',
+        bgcolor: 'background.paper',
+        border: '2px solid #1976d2',
+        borderRadius: '0.5em',
+        boxShadow: 24,
+        p: 4,
+    };
 
     return (
         <>
@@ -98,7 +113,7 @@ const ModalPaciente = () => {
                 aria-describedby="modal-modal-description"
                 sx={{ maxWidth: '100%', maxHeight: '100%', display: 'flex', justifyContent: 'center', margin: '2em' }}
             >
-                <Box sx={{ bgcolor: 'background.paper', p: 2 }}>
+                <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         <div>
                             <h4>Cadastro de Paciente</h4>
@@ -112,18 +127,29 @@ const ModalPaciente = () => {
                                     <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="Nome Completo" variant="outlined" type="text" id="nome" name="nome" value={formData.nome} onChange={(event) => setInput(event, 'nome')} />
                                 </Grid>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="CPF" variant="outlined" type="text" id="cpf" name="cpf" value={formData.cpf} onChange={(event) => setInput(event, 'cpf')} />
+                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="CPF"
+                                     variant="outlined" type="text" id="cpf" name="cpf"
+                                      value={formData.cpf} onChange={(event) => setInput(event, 'cpf')}
+                                      InputProps={{inputComponent: CPFMaskInput as any}}
+                                       />
                                 </Grid>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="E-mail" variant="outlined" type="text" id="email" name="email" value={formData.email} onChange={(event) => setInput(event, 'email')} />
+                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="E-mail"
+                                     variant="outlined" type="text" id="email" name="email"
+                                      value={formData.email} onChange={(event) => setInput(event, 'email')} />
                                 </Grid>
 
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="Telefone" variant="outlined" type="text" id="telefone" name="telefone" value={formData.telefone} onChange={(event) => setInput(event, 'telefone')} />
+                                    <TextField sx={{ margin: '0 0.2em', width: '100%' }} label="Telefone"
+                                    variant="outlined" type="text" id="telefone" name="telefone"
+                                     value={formData.telefone} onChange={(event) => setInput(event, 'telefone')} 
+                                     InputProps={{inputComponent: PhoneMaskInput as any}}
+                                     />
                                 </Grid>
                                 <Grid item lg={4} md={6} sm={12} xs={12}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-                                        <DatePicker sx={{ width: '100%'}} format="DD/MM/YYYY" name="dataNascimento" value={formData.dataNascimento} onChange={(event) => setData(event, 'dataNascimento')} />
+                                        <DatePicker sx={{ width: '100%'}} format="DD/MM/YYYY" name="dataNascimento"
+                                         value={formData.dataNascimento} onChange={(event) => setData(event, 'dataNascimento')} />
                                     </LocalizationProvider>
                                 </Grid>
                                 <Grid item lg={4} md={6} sm={12} xs={12}>
