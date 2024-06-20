@@ -11,14 +11,35 @@ const TabelaPaciente = () => {
 
     // INICIO GET DE PACIENTES
 
+    function procuraParametro() {
+        const urlParams = new URLSearchParams(window.location.href)
+        let filtros = '?' 
+        urlParams.forEach((value, key) => {
+            console.log(`Parâmetro '${key}':`);
+            if (value) {
+                console.log(`Valor: ${value}`);
+                filtros = filtros + `&${key}=${value}`
+                // Faça algo com o valor se ele existir
+            } else {
+                console.log(`Este parâmetro não possui um valor.`);
+                // Faça algo se o valor não existir
+            }
+        });
+        return filtros
+    }
+
     const [pacientes, setPacientes] = useState<any[]>([]);
+    const [openEdit, setOpenEdit] = useState<boolean>(false);
+    const [openDelete, setOpenDelete] = useState<boolean>(false);
+    const [selectedId, setSelectedId] = useState<number | null>(null);
 
     useEffect(() => {
-        fetchPacientes();
+        const filtro = procuraParametro()
+        fetchPacientes(filtro);
     }, []);
 
 
-    function fetchPacientes() {
+    function fetchPacientes(filtro: any) {
 
         const myHeaders = new Headers();
         const token = GetItemLocalStorage('token');
@@ -29,7 +50,7 @@ const TabelaPaciente = () => {
             headers: myHeaders,
         };
 
-        fetch(`http://localhost:5000/paciente`, requestOptions)
+        fetch(`http://localhost:5000/paciente` + filtro, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Pacientes');
@@ -44,26 +65,26 @@ const TabelaPaciente = () => {
 
     // FIM GET DE PACIENTES
 
-    // OPEN MODAL EDIT
-    const [openEdit, setOpenEdit] = useState<boolean>(false);
-
-    const EditOpen = () => {
+    // Funções para abrir e fechar o modal de edição
+    const EditOpen = (id: number) => {
+        setSelectedId(id);
         setOpenEdit(true);
     };
 
     const EditClose = () => {
         setOpenEdit(false);
+        setSelectedId(null);
     };
-    // OPEN MODAL DELETE
 
-    const [openDelete, setOpenDelete] = useState<boolean>(false);
-
-    const DeleteOpen = () => {
+    // Funções para abrir e fechar o modal de exclusão
+    const DeleteOpen = (id: number) => {
+        setSelectedId(id);
         setOpenDelete(true);
     };
 
     const DeleteClose = () => {
         setOpenDelete(false);
+        setSelectedId(null);
     };
     return (
         <Box sx={{ overflow: "auto" }}>
@@ -84,24 +105,29 @@ const TabelaPaciente = () => {
                     <TableBody>
                         {pacientes.map((paciente, index) => (
                             <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                <TableCell component="th" scope="row">{paciente.nome}</TableCell>
+                                <TableCell component="th" scope="row">{paciente.nomeCompleto}</TableCell>
                                 <TableCell>{paciente.cpf}</TableCell>
                                 <TableCell>{paciente.email}</TableCell>
                                 <TableCell>{paciente.telefone}</TableCell>
                                 <TableCell>{new Date(paciente.dataNascimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</TableCell>
                                 <TableCell>{paciente.genero}</TableCell>
-                                <TableCell>{paciente.endereco}</TableCell>
+                                <TableCell>{paciente.bairro}, {paciente.rua}, {paciente.numero}</TableCell>
                                 <TableCell>
-                                    <IconButton color="primary" onClick={EditOpen}><BorderColorIcon /></IconButton>
-                                    <IconButton color="error" onClick={DeleteOpen}><DeleteForeverIcon /></IconButton>
+                                    <IconButton color="primary" onClick={() => EditOpen(paciente.id)}><BorderColorIcon /></IconButton>
+                                    <IconButton color="error" onClick={() => DeleteOpen(paciente.id)}><DeleteForeverIcon /></IconButton>
                                 </TableCell>
-                                <ModalEditarPaciente openFicha={openEdit} fichaClose={EditClose} id={paciente.id} />
-                                <ModalDelete openFicha={openDelete} fichaClose={DeleteClose} id={paciente.id} tabela="paciente" />
+
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </Box>
+            {selectedId !== null && (
+                <>
+                    <ModalEditarPaciente openFicha={openEdit} fichaClose={EditClose} id={selectedId} />
+                    <ModalDelete openFicha={openDelete} fichaClose={DeleteClose} id={selectedId} tabela="paciente" />
+                </>
+            )}
         </Box>
     )
 }

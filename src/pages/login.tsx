@@ -14,7 +14,7 @@ const defaultTheme = createTheme();
 export default function Login() {
     const [redirect, setRedirect] = useState(false);
 
-    
+
     const [formData, setFormData] = useState({
         email: "",
         senha: ""
@@ -62,6 +62,11 @@ export default function Login() {
 
     }
 
+    function handleKeyUp(event: any) {
+        if (event.keyCode === 13) {
+            Login1();
+        }
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -78,6 +83,7 @@ export default function Login() {
                     <img src={ImagemLogo} alt='...' style={{ width: "15em" }} />
                     <Box component="form" noValidate >
                         <TextField
+                            onKeyUp={handleKeyUp}
                             required
                             fullWidth
                             id="email"
@@ -89,12 +95,13 @@ export default function Login() {
                             onChange={(event) => setInput(event, 'email')}
                         />
                         <TextField
+                            onKeyUp={handleKeyUp}
                             margin="normal"
                             required
                             fullWidth
                             name="senha"
                             label="Senha"
-                            type="senha"
+                            type="password"
                             id="senha"
                             autoComplete="current-password"
                             value={formData.senha}

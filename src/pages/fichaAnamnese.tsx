@@ -5,7 +5,8 @@ import Grid from '@mui/material/Grid';
 import { Button, Checkbox, Divider, FormControl, FormControlLabel, TextField } from '@mui/material';
 import { PostAdd } from '@mui/icons-material';
 import { GetItemLocalStorage } from "../helper/localStorage";
-
+import { Link } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 export default function FichaAnamnese() {
 
 
@@ -87,8 +88,8 @@ export default function FichaAnamnese() {
         escalaDeDor: "",
         pinosMarcapasso: "",
         pressaoArterial: "",
-        perfusoesPe: "",
-        perfusoesPd: "",
+        perfusoesPE: "",
+        perfusoesPD: "",
         digitoPressaoPE: "",
         digitoPressaoPD: "",
         formatoUnhasPE: "",
@@ -164,8 +165,8 @@ export default function FichaAnamnese() {
         const intDor = parseInt(formData.escalaDeDor);
         const intDigitoPressaoPE = parseInt(formData.digitoPressaoPE);
         const intDigitoPressaoPD = parseInt(formData.digitoPressaoPD);
-        const intPerfusoesPE = parseInt(formData.perfusoesPe);
-        const intPerfusoesPD = parseInt(formData.perfusoesPd);
+        const intPerfusoesPE = parseInt(formData.perfusoesPE);
+        const intPerfusoesPD = parseInt(formData.perfusoesPD);
 
         const { paciente, podologo, escalaDeDor, ...newFormData } = formData;
 
@@ -203,6 +204,15 @@ export default function FichaAnamnese() {
     return (
         <Paper elevation={2} sx={{ padding: '1em' }}>
             <Grid container spacing={2}>
+                <Grid item lg={12} md={12} sm={12} xs={12}>
+                    <Link to="/admin/agendamento/"
+                    style={{ display: "flex", alignItems: "center", flexDirection: 'row',
+                        textDecoration: 'none', color: '#1976d2', 
+                    }}>
+                        <ArrowBackIcon/> Voltar
+                    </Link>
+                    <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
+                </Grid>
                 <Grid item lg={12} md={12} sm={12} xs={12} style={{ display: "flex", justifyContent: "space-between" }}>
                     <Box component="div" style={{ width: "100%", display: "flex", justifyContent: "stard" }}>
                         <h2><PostAdd /> Ficha de Anamnese</h2>
@@ -279,12 +289,12 @@ export default function FichaAnamnese() {
                                 // disabled
                                 >
                                     {agendamentos.map((agendamento) => (
-                                        <option selected value={agendamento.paciente.id}>{agendamento.paciente.nome}</option>
+                                        <option selected value={agendamento.paciente.id}>{agendamento.paciente.nomeCompleto}</option>
                                     ))}
                                 </select>
                             </Grid>
                             <Grid item lg={3} md={6} sm={12} xs={12} >
-                                <TextField margin="none" label="Gênero" sx={{ width: '100%' }} value={formData.genero}></TextField>
+                                <TextField disabled margin="none" label="Gênero" sx={{ width: '100%' }} value={formData.genero}></TextField>
                             </Grid>
                             <Grid item lg={3} md={6} sm={12} xs={12} >
                                 <TextField margin="none" label="Idade" sx={{ width: '100%' }} value={formData.idade}></TextField>
@@ -381,11 +391,11 @@ export default function FichaAnamnese() {
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
                                     <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                        <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={formData.perfusoesPe} onChange={(event) => setInput(event, 'perfusoesPe')}></TextField>
+                                        <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={formData.perfusoesPE} onChange={(event) => setInput(event, 'perfusoesPe')}></TextField>
                                     </Grid>
-                                    <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                    {/* <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                         <TextField margin="none" label="Digito de pressão pé esquerdo" sx={{ width: '100%' }} value={formData.digitoPressaoPE} onChange={(event) => setInput(event, 'digitoPressaoPE')}></TextField>
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                         <TextField margin="none" label="Formato unhas pé esquerdo" sx={{ width: '100%' }} value={formData.formatoUnhasPE} onChange={(event) => setInput(event, 'formatoUnhasPE')}></TextField>
                                     </Grid>
@@ -404,12 +414,12 @@ export default function FichaAnamnese() {
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
                                     <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                        <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={formData.perfusoesPd} onChange={(event) => setInput(event, 'perfusoesPd')}></TextField>
+                                        <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={formData.perfusoesPD} onChange={(event) => setInput(event, 'perfusoesPd')}></TextField>
                                     </Grid>
 
-                                    <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                    {/* <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                         <TextField margin="none" label="Digito de pressão pé direito" sx={{ width: '100%' }} value={formData.digitoPressaoPD} onChange={(event) => setInput(event, 'digitoPressaoPD')}></TextField>
-                                    </Grid>
+                                    </Grid> */}
 
                                     <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                         <TextField margin="none" label="Formato unhas pé direito" sx={{ width: '100%' }} value={formData.formatoUnhasPD} onChange={(event) => setInput(event, 'formatoUnhasPD')}></TextField>

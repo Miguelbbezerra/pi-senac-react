@@ -1,4 +1,5 @@
-import { Outlet } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { GetItemLocalStorage } from "../helper/localStorage";
 import "../styles/sideBar.css"
 import { Button, Card, CardActions, CardContent, CardMedia, Divider, Grid, Typography } from "@mui/material"
 
@@ -23,7 +24,43 @@ const data = [
     }
 ];
 
-function Home() {
+interface User {
+    nome: string;
+    email: string;
+}
+
+const Home: React.FC = () => {
+
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        usuario();
+    }, []);
+
+    function usuario() {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const token = GetItemLocalStorage('token');
+
+        const raw = JSON.stringify({
+            "token": token
+        });
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+        };
+
+        fetch("http://localhost:5000/api/validate-token", requestOptions)
+            .then((response) => response.json())  // Use response.json() para tratar a resposta como JSON
+            .then((data) => {
+                setUser(data.decoded.data)
+            })
+            .catch((error) => console.error('Error:', error));
+    }
+
     return (
         <>
             <Grid container spacing={2}>
@@ -32,11 +69,10 @@ function Home() {
                         <CardMedia
                             sx={{ height: 200 }}
                             image="https://amigoedu-blog-uploads.s3.amazonaws.com/uploads/2023/02/Podologia-saiba-tudo-sobre-esse-curso.png"
-                            title="green iguana"
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                                Podologia
+                            {user ? <div>Bem-vindo, {user.nome}!</div> : <div>Carregando...</div>}
                             </Typography>
                         </CardContent>
                         <Divider />
@@ -49,9 +85,8 @@ function Home() {
                     <Grid item xs={12} sm={12} md={4} lg={4} >
                         <Card key={index} sx={{ maxWidth: '100%' }}>
                             <CardMedia
-                                sx={{ height: 200}}
+                                sx={{ height: 200 }}
                                 image={item.image}
-                                title="Green Iguana"
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
@@ -63,7 +98,7 @@ function Home() {
                             </CardContent>
                             <Divider />
                             <CardActions>
-                                <Button size="small"><a href={item.url} target="_blank" style={{ textDecoration: 'none', color: '#1976d2' }}>Learn More</a></Button>
+                                <a href={item.url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#1976d2' }}><Button size="small">Aprenda Mais</Button></a>
                                 {/* <Button size="small">Learn More</Button> */}
                             </CardActions>
                         </Card>

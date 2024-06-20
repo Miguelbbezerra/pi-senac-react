@@ -35,8 +35,8 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
         pressaoArterial: "",
         perfusoesPe: "",
         perfusoesPd: "",
-        digitoPressaoPE: "",
-        digitoPressaoPD: "",
+        digitoPressaoPE: 0,
+        digitoPressaoPD: 0,
         formatoUnhasPE: "",
         formatoUnhasPD: "",
         formatoPePE: "",
@@ -118,7 +118,6 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
         }
 
         const newFormData = Object.assign({}, formData, { [key]: value })
-        console.log('1')
         setFormData(newFormData)
     }
 
@@ -137,7 +136,7 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     <div>
                         {fichas.map((ficha, index) => (
-                            <h4>Ficha Do(a) {ficha.paciente.nome}</h4>
+                            <h4>Ficha Do(a) {ficha.paciente.nomeCompleto}</h4>
                         ))}
                     </div>
                 </Typography>
@@ -250,9 +249,9 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                                     <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={ficha.perfusoesPe} onChange={(event) => setInput(event, 'perfusoesPe')}></TextField>
                                                 </Grid>
-                                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+                                                {/* <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                                     <TextField margin="none" label="Digito de pressão pé esquerdo" sx={{ width: '100%' }} value={ficha.digitoPressaoPE} onChange={(event) => setInput(event, 'digitoPressaoPE')}></TextField>
-                                                </Grid>
+                                                </Grid> */}
                                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                                     <TextField margin="none" label="Formato unhas pé esquerdo" sx={{ width: '100%' }} value={ficha.formatoUnhasPE} onChange={(event) => setInput(event, 'formatoUnhasPE')}></TextField>
                                                 </Grid>
@@ -273,10 +272,10 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                                     <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={ficha.perfusoesPd} onChange={(event) => setInput(event, 'perfusoesPd')}></TextField>
                                                 </Grid>
-
+{/* 
                                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                                     <TextField margin="none" label="Digito de pressão pé direito" sx={{ width: '100%' }} value={ficha.digitoPressaoPD} onChange={(event) => setInput(event, 'digitoPressaoPD')}></TextField>
-                                                </Grid>
+                                                </Grid> */}
 
                                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                                     <TextField margin="none" label="Formato unhas pé direito" sx={{ width: '100%' }} value={ficha.formatoUnhasPD} onChange={(event) => setInput(event, 'formatoUnhasPD')}></TextField>

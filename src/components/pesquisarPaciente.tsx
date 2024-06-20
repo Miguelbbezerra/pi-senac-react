@@ -12,7 +12,7 @@ interface FormFiltro {
     idade: string;
 }
 
-const InputPesquisar = () => {
+const InputPesquisarPaciente = () => {
 
     const style = {
         modal: {
@@ -159,7 +159,7 @@ const InputPesquisar = () => {
                             <InputAdornment position="end">
                                 {urlParams !== '' && (
                                     <Button type="button" color="error" onClick={() => {
-                                        window.location.href = '/admin/podologo'
+                                        window.location.href = '/admin/paciente'
                                     }}>
                                         <p>Cancelar Filtros</p>
                                     </Button>
@@ -216,4 +216,4 @@ const InputPesquisar = () => {
         </Grid>
     )
 }
-export default InputPesquisar
+export default InputPesquisarPaciente

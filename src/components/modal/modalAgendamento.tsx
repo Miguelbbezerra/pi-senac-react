@@ -1,8 +1,8 @@
-import { Box, Button, Divider, FormControl, Grid, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material"
+import { Box, Button, Divider, FormControl, Grid, InputLabel, MenuItem, Modal, Select, Snackbar, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import InputPesquisar from "../pesquisar";
-import { Link } from "react-router-dom";
 import { GetItemLocalStorage } from "../../helper/localStorage";
+import InputPesquisarAgendamento from "../pesquisarAgendamento";
 
 const ModalAgendamento = () => {
 
@@ -102,12 +102,22 @@ const ModalAgendamento = () => {
         };
 
         fetch("http://localhost:5000/agendamento", requestOptions)
-            .then((response) => response.text())
+            .then(async (response) => {
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Erro ao salvar o Agendamento');
+                }
+                return response.text();
+            })
             .then((result) => {
-                // console.log(result);
+                console.log(result);
                 window.location.reload();
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error(error);
+                setSnackbarMessage(error.message);
+                setSnackbarOpen(true);
+            });
     }
 
     //SET DE AGENDAMENTO
@@ -134,13 +144,24 @@ const ModalAgendamento = () => {
 
 
     //TRATAMENTO DE DADOS DE AGENDAMENTOS PARA POST
+    const [error, setError] = useState('');
 
     const setInput = (event: any, key: string) => {
 
         const value = event.target.value
-        const newFormData = Object.assign({}, formData, { [key]: value })
+        if (key === 'hora') {
+            if (isValidTime(value)) {
+                setError('');
+                const newFormData = Object.assign({}, formData, { [key]: value })
+                setFormData(newFormData)
+            } else {
+                setError('Horário inválido! Escolha entre 7am-11am ou 1pm-5pm.');
+            }
+        } else {
+            const newFormData = Object.assign({}, formData, { [key]: value })
 
-        setFormData(newFormData)
+            setFormData(newFormData)
+        }
     }
 
     const [formData, setFormData] = useState({
@@ -155,13 +176,36 @@ const ModalAgendamento = () => {
     //TRATAMENTO DE DADOS DE AGENDAMENTOS PARA POST
 
 
+    // DEFINIÇÃO DAS FAIXAS DISPONIVEIS DE HORAS 
+
+    function isValidTime(time: any) {
+        const [hours, minutes] = time.split(":").map(Number)
+        if (
+            (hours >= 7 && hours < 11) ||
+            (hours >= 13 && hours < 17) ||
+            (hours === 11 && minutes === 0) ||
+            (hours === 17 && minutes === 0)
+        ) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    // DEFINIÇÃO DAS FAIXAS DISPONIVEIS DE HORAS 
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const handleSnackbarClose = () => setSnackbarOpen(false);
+
+
     return (
         <>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                     <Button style={{ border: '1px solid #1976d2', width: '100%', height: '100%' }} onClick={handleOpen}>Agendar</Button>
                 </Grid>
-                <InputPesquisar />
+                <InputPesquisarAgendamento />
             </Grid>
             <Modal
 
@@ -193,7 +237,7 @@ const ModalAgendamento = () => {
                                                 onChange={(event) => setInput(event, 'paciente')}
                                             >
                                                 {pacientes.map((paciente) => (
-                                                    <MenuItem value={paciente.id}>{paciente.nome}</MenuItem>
+                                                    <MenuItem value={paciente.id}>{paciente.nomeCompleto}</MenuItem>
                                                 ))}
                                             </Select>
                                         </FormControl>
@@ -219,7 +263,11 @@ const ModalAgendamento = () => {
                                         <TextField style={{ width: '100%' }} type="date" id="data" name="data" value={formData.data} onChange={(event) => setInput(event, 'data')} />
                                     </Grid>
                                     <Grid item lg={6} md={12} sm={12} xs={12}>
-                                        <TextField style={{ width: '100%' }} type="time" id="hora" name="hora" value={formData.hora} onChange={(event) => setInput(event, 'hora')} />
+                                        <TextField style={{ width: '100%' }}
+                                            type="time" id="hora" name="hora"
+                                            value={formData.hora} onChange={(event) => setInput(event, 'hora')}
+                                            error={!!error} helperText={error}
+                                        />
                                     </Grid>
                                     <Grid item lg={12} md={12} sm={12} xs={12}>
                                         <TextField style={{ width: '100%' }}
@@ -240,6 +288,12 @@ const ModalAgendamento = () => {
                     </Typography>
                 </Box>
             </Modal>
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+                message={snackbarMessage}
+            />
         </>
     )
 }

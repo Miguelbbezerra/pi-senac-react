@@ -1,12 +1,8 @@
 import { Divider } from "@mui/material";
-import useWindowSize from "../useWindowSize";
 import ModalPaciente from "../components/modal/modalPaciente";
 import TabelaPaciente from "../components/tables/tabelaPaciente";
 
 const Paciente = () => {
-
-    const { width } = useWindowSize();
-
     return (
         <>
             <ModalPaciente />

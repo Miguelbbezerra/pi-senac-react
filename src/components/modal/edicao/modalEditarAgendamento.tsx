@@ -1,9 +1,6 @@
 import { Box, Divider, Modal, TextField, Typography, Button, Grid, FormControl, InputLabel, Select, MenuItem } from "@mui/material"
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../../helper/localStorage";
-import dayjs from "dayjs";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 interface ModalEditarProps {
     openFicha: boolean;
@@ -152,7 +149,7 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
                     const newPacAndPod = {
                         ...pacAndPod,
                         pacienteIdSelected: agendamento.paciente,
-                        pacienteNomeSelected: agendamento.paciente.nome,
+                        pacienteNomeSelected: agendamento.paciente.nomeCompleto,
                         podologoIdSelected: agendamento.podologo,
                         podologoNomeSelected: agendamento.podologo.nomeCompleto
                     }

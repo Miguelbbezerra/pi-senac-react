@@ -6,8 +6,6 @@ const Podologo = () => {
   
     return (
         <>
-            <ModalPodologo/>
-            <Divider style={{ margin: '1em 0' }} />
             <TabelaPodologo />
         </>
     )
