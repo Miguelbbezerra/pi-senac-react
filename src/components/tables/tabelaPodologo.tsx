@@ -48,7 +48,7 @@ const TabelaPodologo = () => {
             headers: myHeaders,
         };
 
-        fetch("http://localhost:5000/podologo" + filtro, requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/podologo" + filtro, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Podologos');

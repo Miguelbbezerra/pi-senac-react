@@ -89,6 +89,28 @@ export const GeneroMaskInput = React.forwardRef<HTMLInputElement, CustomProps>(
     },
 );
 
+// Máscara para apenas letras
+export const PasswordMaskInput = React.forwardRef<HTMLInputElement, CustomProps>(
+    function PasswordMaskInput(props, ref) {
+        const { onChange, ...other } = props;
+
+        const handleAccept = (value: string) => {
+            // Remove espaços da entrada
+            const sanitizedValue = value.replace(/\s+/g, '');
+            onChange({ target: { name: props.name, value: sanitizedValue } });
+        };
+        return (
+            <IMaskInput
+                {...other}
+                mask={/.*/}
+                inputRef={ref}
+                onAccept={handleAccept}
+                overwrite
+            />
+        );
+    },
+);
+
 // Máscara para apenas letras e espaços
 export const LettersMaskInput = React.forwardRef<HTMLInputElement, CustomProps>(
     function LettersMaskInput(props, ref) {

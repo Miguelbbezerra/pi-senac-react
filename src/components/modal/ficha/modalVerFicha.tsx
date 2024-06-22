@@ -89,7 +89,7 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
         };
 
         // Retorna a Promise resultante da chamada fetch
-        return fetch(`http://localhost:5000/anamnese/?id=${id_ficha}`, requestOptions)
+        return fetch(`https://api-pi-senac.azurewebsites.net/anamnese/?id=${id_ficha}`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em buscar o a ficha');

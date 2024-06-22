@@ -46,7 +46,7 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
             headers: myHeaders,
         };
 
-        fetch("http://localhost:5000/paciente", requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/paciente", requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Pacientes');
@@ -74,7 +74,7 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
             headers: myHeaders,
         };
 
-        fetch("http://localhost:5000/podologo", requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/podologo", requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Podologo');
@@ -113,7 +113,7 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
 
         const raw = JSON.stringify(requestBody)
 
-        fetch(`http://localhost:5000/agendamento/${id}`, {
+        fetch(`https://api-pi-senac.azurewebsites.net/agendamento/${id}`, {
             method: "PUT",
             headers: myHeaders,
             body: raw,
@@ -196,7 +196,7 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
         };
 
         // Retorna a Promise resultante da chamada fetch
-        return fetch(`http://localhost:5000/agendamento/?id=${id}`, requestOptions)
+        return fetch(`https://api-pi-senac.azurewebsites.net/agendamento/?id=${id}`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em buscar o agendamento');
