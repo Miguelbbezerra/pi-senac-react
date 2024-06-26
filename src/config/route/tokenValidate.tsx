@@ -1,0 +1,28 @@
+// auth.ts
+export const validateToken = async (token: string): Promise<boolean> => {
+    try {
+    
+        const raw = JSON.stringify({
+            token: token
+        })
+        
+      const response = await fetch('http://localhost:5000/api/validate-token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: raw
+      });
+  
+      if (!response.ok) {
+        return false;
+      }
+  
+      const data = await response.json();
+      return data.valid; // Supondo que a API retorna um objeto { valid: true/false }
+    } catch (error) {
+      console.error('Token validation error:', error);
+      return false;
+    }
+  };
+  
