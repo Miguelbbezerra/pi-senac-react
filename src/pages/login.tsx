@@ -12,7 +12,7 @@ import { useState } from 'react';
 const defaultTheme = createTheme();
 
 export default function Login() {
-    const [redirect, setRedirect] = useState(false);
+    // const [redirect, setRedirect] = useState(false);
 
 
     const [formData, setFormData] = useState({
@@ -41,7 +41,7 @@ export default function Login() {
             .then((response: any) => {
                 SetItemLocalStorage('token', response.data.token)
                 // window.location.href = '/admin/';
-                setRedirect(true);
+                window.location.href = '/admin/home';
             })
             .catch((error: any) => {
                 console.log(error);
@@ -49,9 +49,9 @@ export default function Login() {
 
     }
 
-    if (redirect) {
-        window.location.href = '/admin/home';
-    }
+    // if (redirect) {
+    //     window.location.href = '/admin/home';
+    // }
 
     const setInput = (event: any, key: string) => {
 
