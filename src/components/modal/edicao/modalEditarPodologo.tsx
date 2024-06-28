@@ -1,8 +1,8 @@
 import { Box, Divider, Modal, TextField, Typography, Button, Grid } from "@mui/material"
 import { useEffect, useState } from "react";
-import { GetItemLocalStorage } from "../../../helper/localStorage";
+import { GetItemLocalStorage } from "@/helper/localStorage";
 import dayjs from "dayjs";
-import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../../mask/MaskInput";
+import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "@/components/mask/MaskInput";
 
 interface ModalEditarProps {
     openFicha: boolean;

@@ -1,5 +1,5 @@
 import { Divider, FormControl, Grid, InputLabel, OutlinedInput, Paper, TextField } from "@mui/material"
-import { GetItemLocalStorage } from "../helper/localStorage"
+import { GetItemLocalStorage } from "@/helper/localStorage"
 import { useEffect, useState } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 

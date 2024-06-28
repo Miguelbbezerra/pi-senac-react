@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { DatePicker, DateTimePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { GetItemLocalStorage } from "../helper/localStorage";
+import { GetItemLocalStorage } from "@/helper/localStorage";
 
 interface FormFiltro {
     paciente: string;

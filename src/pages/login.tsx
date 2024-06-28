@@ -4,9 +4,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ImagemLogo from './../images/senac-logo.png';
+import ImagemLogo from '@/images/senac-logo.png';
 import axios from 'axios';
-import { SetItemLocalStorage } from '../helper/localStorage';
+import { SetItemLocalStorage } from '@/helper/localStorage';
 import { useState } from 'react';
 
 const defaultTheme = createTheme();

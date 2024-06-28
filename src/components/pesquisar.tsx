@@ -2,7 +2,7 @@ import { Box, Button, Divider, Grid, InputAdornment, Modal, TextField, Typograph
 import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { CPFMaskInput, GeneroMaskInput, LettersMaskInput } from "./mask/MaskInput";
+import { CPFMaskInput, GeneroMaskInput, LettersMaskInput } from "@/components/mask/MaskInput";
 
 interface FormFiltro {
     nomeCompleto: string;

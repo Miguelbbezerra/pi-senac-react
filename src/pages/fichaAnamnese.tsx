@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Button, Checkbox, Divider, FormControl, FormControlLabel, TextField } from '@mui/material';
 import { PostAdd } from '@mui/icons-material';
-import { GetItemLocalStorage } from "../helper/localStorage";
+import { GetItemLocalStorage } from "@/helper/localStorage";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 export default function FichaAnamnese() {

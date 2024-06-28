@@ -3,10 +3,10 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
-import { GetItemLocalStorage } from "../../helper/localStorage";
-import ModalEditarAgendamento from "../modal/edicao/modalEditarAgendamento";
-import ModalVerFicha from "../modal/ficha/modalVerFicha";
-import ModalDelete from "../modal/delete/modalDelete";
+import { GetItemLocalStorage } from "@/helper/localStorage";
+import ModalEditarAgendamento from "@/components/modal/edicao/modalEditarAgendamento";
+import ModalVerFicha from "@/components/modal/ficha/modalVerFicha";
+import ModalDelete from "@/components/modal/delete/modalDelete";
 
 const TabelaAgendamento = () => {
 

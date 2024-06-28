@@ -1,6 +1,6 @@
 import { Divider } from "@mui/material";
-import ModalPaciente from "../components/modal/modalPaciente";
-import TabelaPaciente from "../components/tables/tabelaPaciente";
+import ModalPaciente from "@/components/modal/modalPaciente";
+import TabelaPaciente from "@/components/tables/tabelaPaciente";
 
 const Paciente = () => {
     return (

@@ -3,10 +3,10 @@ import { useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import InputPesquisar from "../pesquisar";
-import { GetItemLocalStorage } from "../../helper/localStorage";
-import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../mask/MaskInput";
-import InputPesquisarPaciente from "../pesquisarPaciente";
+import InputPesquisar from "@/components/pesquisar";
+import { GetItemLocalStorage } from "@/helper/localStorage";
+import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "@/components/mask/MaskInput";
+import InputPesquisarPaciente from "@/components/pesquisarPaciente";
 
 const ModalPaciente = () => {
 

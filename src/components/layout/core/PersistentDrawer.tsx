@@ -22,9 +22,9 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Diversity1 } from '@mui/icons-material';
-import ImagemLogo from './../../../images/logo-ext-white.png';
+import ImagemLogo from '@/images/logo-ext-white.png';
 import { Button } from '@mui/material';
-import { DeleteItemLocalStorage } from '../../../helper/localStorage';
+import { DeleteItemLocalStorage } from '@/helper/localStorage';
 import { useNavigate } from 'react-router-dom';
 interface Props {
     /**
