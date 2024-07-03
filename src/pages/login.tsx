@@ -30,7 +30,7 @@ export default function Login() {
         const config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:5000/login',
+            url: 'https://api-pi-senac.azurewebsites.net/login',
             headers: {
                 'Content-Type': 'application/json'
             },

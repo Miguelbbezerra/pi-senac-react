@@ -15,16 +15,25 @@ module.exports = merge(common, {
     }, {
       test: /\.scss$/,
       use: [{
-        loader: MiniCssExtractPlugin.loader
+          loader: 'style-loader'
       }, {
-        loader: 'css-loader',
-        options: {
-          modules: true
-        }
+          loader: 'css-loader',
+          options: {
+              modules: true
+          }
       }, {
-        loader: 'sass-loader'
+          loader: 'sass-loader'
       }]
-    }]
+  }, {
+      test: /\.(png|jpe?g|gif)$/i,
+      loader: 'file-loader',
+      options: {
+        outputPath: 'images',
+      },
+    }, {
+      test: /\.css$/,
+      use: ["style-loader", "css-loader"]
+  }]
   },
   externals: {
     react: 'React',

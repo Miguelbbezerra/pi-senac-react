@@ -53,7 +53,7 @@ const Home: React.FC = () => {
             body: raw,
         };
 
-        fetch("http://localhost:5000/api/validate-token", requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/api/validate-token", requestOptions)
             .then((response) => response.json())  // Use response.json() para tratar a resposta como JSON
             .then((data) => {
                 setUser(data.decoded.data)
