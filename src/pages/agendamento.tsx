@@ -1,6 +1,6 @@
 import { Divider } from "@mui/material"
-import TabelaAgendamento from "@/components/tables/tabelaAgendamento";
-import ModalAgendamento from "@/components/modal/modalAgendamento";
+import TabelaAgendamento from "../components/tables/tabelaAgendamento";
+import ModalAgendamento from "../components/modal/modalAgendamento";
 
 const Agendamento = () => {
     return (

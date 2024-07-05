@@ -1,6 +1,6 @@
 import { Box, Divider, Modal, Typography, Grid, TextField, FormControlLabel, Checkbox, FormControl, Button } from "@mui/material"
 import { useEffect, useState } from "react";
-import { GetItemLocalStorage } from "@/helper/localStorage";
+import { GetItemLocalStorage } from "../../../helper/localStorage";
 
 interface ModalEditarProps {
     openFicha: boolean;

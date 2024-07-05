@@ -1,12 +1,12 @@
 import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
-import Home from "@/pages/home";
-import Root from "@/components/root";
-import Paciente from "@/pages/paciente";
-import Agendamento from "@/pages/agendamento";
-import Login from "@/pages/login";
-import Perfil from "@/pages/perfil";
-import Podologo from "@/pages/podologo";
-import FichaAnamnese from "@/pages/fichaAnamnese";
+import Home from "../../pages/home";
+import Root from "../../components/root";
+import Paciente from "../../pages/paciente";
+import Agendamento from "../../pages/agendamento";
+import Login from "../../pages/login";
+import Perfil from "../../pages/perfil";
+import Podologo from "../../pages/podologo";
+import FichaAnamnese from "../../pages/fichaAnamnese";
 import PrivateRoute from "./privateRoute";
 
 

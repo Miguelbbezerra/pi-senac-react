@@ -2,9 +2,9 @@ import { Box, IconButton, Table, TableBody, TableCell, TableHead, TableRow } fro
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
-import { GetItemLocalStorage } from "@/helper/localStorage";
-import ModalEditarPaciente from "@/components/modal/edicao/modalEditarPaciente";
-import ModalDelete from "@/components/modal/delete/modalDelete";
+import { GetItemLocalStorage } from "../../helper/localStorage";
+import ModalEditarPaciente from "../../components/modal/edicao/modalEditarPaciente";
+import ModalDelete from "../../components/modal/delete/modalDelete";
 
 
 const TabelaPaciente = () => {

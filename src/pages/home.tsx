@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { GetItemLocalStorage } from "@/helper/localStorage";
-import "@/styles/sideBar.css"
+import { GetItemLocalStorage } from "../helper/localStorage";
+import "../styles/sideBar.css"
 import { Button, Card, CardActions, CardContent, CardMedia, Divider, Grid, Typography } from "@mui/material"
 
 const data = [

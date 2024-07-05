@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { validateToken } from './tokenValidate';
-import { GetItemLocalStorage } from '@/helper/localStorage';
+import { GetItemLocalStorage } from '../../helper/localStorage';
 
 interface PrivateRouteProps {
   redirectTo: string;

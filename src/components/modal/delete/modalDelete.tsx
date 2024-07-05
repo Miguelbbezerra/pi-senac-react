@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, Modal, Snackbar, Typography } from "@mui/material"
-import { GetItemLocalStorage } from "@/helper/localStorage";
+import { GetItemLocalStorage } from "../../../helper/localStorage";
 import { useState } from "react";
 
 interface ModalDeleteProps {
