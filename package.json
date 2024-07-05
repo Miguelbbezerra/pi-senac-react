@@ -1,7 +1,7 @@
 {
   "name": "pi-senac-front",
   "version": "0.1.0",
-  "homepage": "https://jhonata-prof.github.io/pi-senac-front",
+  "homepage": "https://jhonataprof.github.io/pi-senac-front/",
   "private": true,
   "dependencies": {
     "axios": "^1.6.8",
