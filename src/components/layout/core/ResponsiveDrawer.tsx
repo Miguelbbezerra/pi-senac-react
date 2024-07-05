@@ -21,7 +21,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import { Diversity1 } from '@mui/icons-material';
-import useWindowSize from '@/useWindowSize';
+import useWindowSize from '../../../useWindowSize';
 
 const drawerWidth = 240;
 
