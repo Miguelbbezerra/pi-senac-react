@@ -50,7 +50,7 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({ openFicha, fichaClose, id, ta
             body: raw
         };
 
-        fetch(`http://localhost:5000/${tabela}/delete/${id}`, requestOptions)
+        fetch(`https://api-pi-senac.azurewebsites.net/${tabela}/delete/${id}`, requestOptions)
             .then(async (response) => {
                 if (!response.ok) {
                     const errorData = await response.json();

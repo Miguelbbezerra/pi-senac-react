@@ -50,7 +50,7 @@ const TabelaPaciente = () => {
             headers: myHeaders,
         };
 
-        fetch(`http://localhost:5000/paciente` + filtro, requestOptions)
+        fetch(`https://api-pi-senac.azurewebsites.net/paciente` + filtro, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Pacientes');

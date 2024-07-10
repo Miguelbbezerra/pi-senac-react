@@ -28,7 +28,7 @@ const ModalAgendamento = () => {
             headers: myHeaders,
         };
 
-        fetch("http://localhost:5000/paciente", requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/paciente", requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Pacientes');
@@ -56,7 +56,7 @@ const ModalAgendamento = () => {
             headers: myHeaders,
         };
 
-        fetch("http://localhost:5000/podologo", requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/podologo", requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Podologo');
@@ -101,7 +101,7 @@ const ModalAgendamento = () => {
             body: raw,
         };
 
-        fetch("http://localhost:5000/agendamento", requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/agendamento", requestOptions)
             .then(async (response) => {
                 if (!response.ok) {
                     const errorData = await response.json();

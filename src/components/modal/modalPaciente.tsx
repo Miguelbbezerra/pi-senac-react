@@ -25,7 +25,7 @@ const ModalPaciente = () => {
 
         const raw = JSON.stringify(newFormData);
 
-        fetch("http://localhost:5000/paciente", {
+        fetch("https://api-pi-senac.azurewebsites.net/paciente", {
             method: "POST",
             headers: myHeaders,
             body: raw,

@@ -33,7 +33,7 @@ const ModalPodologo = () => {
 
         const raw = JSON.stringify(newFormData);
 
-        fetch("http://localhost:5000/podologo", {
+        fetch("https://api-pi-senac.azurewebsites.net/podologo", {
 
             method: "POST",
             headers: myHeaders,

@@ -40,7 +40,7 @@ const Perfil = () => {
             body: raw,
         };
 
-        fetch("http://localhost:5000/api/validate-token", requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/api/validate-token", requestOptions)
             .then((response) => response.json())  // Use response.json() para tratar a resposta como JSON
             .then((data) => {
                 setUser(data.decoded.data)
@@ -61,7 +61,7 @@ const Perfil = () => {
             headers: myHeaders,
         };
 
-        fetch("http://localhost:5000/podologo?email=" + email, requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/podologo?email=" + email, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Podologos');

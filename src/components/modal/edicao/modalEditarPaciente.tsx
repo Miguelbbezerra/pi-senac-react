@@ -41,7 +41,7 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
 
         const raw = JSON.stringify(newFormData);
 
-        fetch(`http://localhost:5000/paciente/${id}`, {
+        fetch(`https://api-pi-senac.azurewebsites.net/paciente/${id}`, {
             method: "PUT",
             headers: myHeaders,
             body: raw,
@@ -117,7 +117,7 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
         };
 
         // Retorna a Promise resultante da chamada fetch
-        return fetch(`http://localhost:5000/paciente?id=${id}`, requestOptions)
+        return fetch(`https://api-pi-senac.azurewebsites.net/paciente?id=${id}`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em buscar o Paciente');

@@ -50,7 +50,7 @@ const TabelaAgendamento = () => {
             headers: myHeaders,
         };
 
-        fetch("http://localhost:5000/agendamento" + filtro, requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/agendamento" + filtro, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Agendamento');

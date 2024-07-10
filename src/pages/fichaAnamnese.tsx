@@ -35,7 +35,7 @@ export default function FichaAnamnese() {
         console.log(id_agendamento)
 
 
-        fetch(`http://localhost:5000/agendamento/?id=${id_agendamento}`, requestOptions)
+        fetch(`https://api-pi-senac.azurewebsites.net/agendamento/?id=${id_agendamento}`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Agendamento');
@@ -190,7 +190,7 @@ export default function FichaAnamnese() {
             body: raw,
         };
 
-        fetch("http://localhost:5000/anamnese", requestOptions)
+        fetch("https://api-pi-senac.azurewebsites.net/anamnese", requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 console.log(result);

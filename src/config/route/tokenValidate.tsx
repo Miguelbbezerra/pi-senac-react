@@ -6,7 +6,7 @@ export const validateToken = async (token: string): Promise<boolean> => {
             token: token
         })
         
-      const response = await fetch('http://localhost:5000/api/validate-token', {
+      const response = await fetch('https://api-pi-senac.azurewebsites.net/api/validate-token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
