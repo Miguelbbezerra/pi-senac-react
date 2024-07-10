@@ -192,7 +192,7 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
         };
 
         fetchData();
-    }, [formData, id]);
+    }, [formData, id, pacAndPod]);
 
 
     function fetchAgendamentoUnico(id: number) {
