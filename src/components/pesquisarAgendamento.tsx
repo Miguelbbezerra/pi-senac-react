@@ -1,10 +1,6 @@
-import { Box, Button, Divider, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material"
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, Button, Divider, FormControl, Grid, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { DatePicker, DateTimePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { GetItemLocalStorage } from "../helper/localStorage";
 
 interface FormFiltro {
@@ -45,46 +41,6 @@ const InputPesquisarAgendamento = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-    // AREA DO MODAL
-
-
-
-
-
-    // CAMPO DE PESQUISA
-    const [formData, setFormData] = useState({
-        pesquisa: ""
-    })
-
-    function pesquisar() {
-        const containsLetter = hasLetter(formData.pesquisa);
-
-        if (containsLetter) {
-            window.location.href = '?&nomeCompleto=' + formData.pesquisa;
-        } else {
-            window.alert('Pesquisa inválida!');
-        }
-    }
-
-    const setInput = (event: any, key: string) => {
-
-        const value = event.target.value
-        const newFormData = Object.assign({}, formData, { [key]: value })
-
-        setFormData(newFormData)
-    }
-    // CAMPO DE PESQUISA
-
-
-
-
-
-
-    // VALIDANDO DADOS DO FORM
-    function hasLetter(str: any) {
-        return /[a-zA-Z]/.test(str);
-    }
 
     const [formFiltro, setFormFiltro] = useState<FormFiltro>({
         paciente: "",
