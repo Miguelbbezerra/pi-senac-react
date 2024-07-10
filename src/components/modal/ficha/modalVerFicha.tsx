@@ -1,4 +1,4 @@
-import { Box, Divider, Modal, Typography, Grid, TextField, FormControlLabel, Checkbox, FormControl, Button } from "@mui/material"
+import { Box, Divider, Modal, Typography, Grid, TextField, FormControlLabel, Checkbox, FormControl } from "@mui/material"
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../../helper/localStorage";
 
@@ -183,13 +183,13 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                             <TextField margin="none" label="Tipo de meia que mais usa" sx={{ width: '100%' }} value={ficha.tipoMeia} onChange={(event) => setInput(event, 'tipoMeia')}></TextField>
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
-                                            <FormControlLabel required control={<Checkbox checked={ficha.praticaEsporte == 1} value={ficha.praticaEsporte} />} label="Pratica esporte" />
+                                            <FormControlLabel required control={<Checkbox checked={ficha.praticaEsporte === 1} value={ficha.praticaEsporte} />} label="Pratica esporte" />
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
-                                                <FormControlLabel required control={<Checkbox checked={ficha.gestante == 1} value={ficha.gestante} />} label="Gestante" />
+                                                <FormControlLabel required control={<Checkbox checked={ficha.gestante === 1} value={ficha.gestante} />} label="Gestante" />
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
-                                            <FormControlLabel required control={<Checkbox checked={ficha.lactante == 1} value={ficha.lactante} />} label="Lactante" />
+                                            <FormControlLabel required control={<Checkbox checked={ficha.lactante === 1} value={ficha.lactante} />} label="Lactante" />
                                         </Grid>
                                         {/* ------------------------FIM DADOS PESSOAIS------------------------------ */}
 
@@ -231,10 +231,10 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                             <TextField margin="none" label="Glicemia" sx={{ width: '100%' }} value={ficha.glicemia} onChange={(event) => setInput(event, 'glicemia')}></TextField>
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
-                                            <FormControlLabel required control={<Checkbox checked={ficha.etilista == 1} value={ficha.etilista} />} label="Etilista" />
+                                            <FormControlLabel required control={<Checkbox checked={ficha.etilista === 1} value={ficha.etilista} />} label="Etilista" />
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
-                                            <FormControlLabel required control={<Checkbox checked={ficha.tabagista == 1} value={ficha.tabagista} />} label="Tabagista" />
+                                            <FormControlLabel required control={<Checkbox checked={ficha.tabagista === 1} value={ficha.tabagista} />} label="Tabagista" />
                                         </Grid>
 
                                         <Grid item lg={12} md={12} sm={12} xs={12} >

@@ -1,6 +1,6 @@
 import { Box, Button, Divider, Grid, InputAdornment, Modal, TextField, Typography } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { CPFMaskInput, GeneroMaskInput, LettersMaskInput } from "../components/mask/MaskInput";
 

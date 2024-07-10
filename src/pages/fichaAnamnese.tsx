@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -14,7 +14,7 @@ export default function FichaAnamnese() {
     // GET DE AGENADAMENTO
     const [agendamentos, setAgendamento] = useState<any[]>([]);
 
-    function fetchAgendamento() {
+    const fetchAgendamento = useCallback(() => {
         const myHeaders = new Headers();
         const token = GetItemLocalStorage('token');
         myHeaders.append("Authorization", `Bearer ${token}`);
@@ -46,7 +46,7 @@ export default function FichaAnamnese() {
                 setAgendamento(data);
             })
             .catch((error) => console.error(error));
-    }
+    }, [])
     // GET DE AGENADAMENTO
 
     // TRATANDO DADOS DO FORM DA FICHA

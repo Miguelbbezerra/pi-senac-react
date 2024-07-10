@@ -4,7 +4,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import InputPesquisar from "../../components/pesquisar";
 import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../../components/mask/MaskInput";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 

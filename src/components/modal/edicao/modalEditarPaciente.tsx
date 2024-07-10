@@ -26,6 +26,20 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
         p: 4,
     };
 
+    const [formData, setFormData] = useState({
+        nomeCompleto: "",
+        cpf: "",
+        email: "",
+        telefone: "",
+        dataNascimento: "",
+        genero: "",
+        cep: "",
+        cidade: "",
+        bairro: "",
+        rua: "",
+        numero: ""
+    })
+
     // INICIO SET DE PACIENTES
 
     function updatePaciente() {
@@ -103,7 +117,7 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
         };
 
         fetchData();
-    }, []);
+    }, [formData, id]);
 
 
     function fetchPacienteUnico(id: number) {
@@ -142,19 +156,7 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
     }
 
 
-    const [formData, setFormData] = useState({
-        nomeCompleto: "",
-        cpf: "",
-        email: "",
-        telefone: "",
-        dataNascimento: "",
-        genero: "",
-        cep: "",
-        cidade: "",
-        bairro: "",
-        rua: "",
-        numero: ""
-    })
+    
 
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);

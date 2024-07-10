@@ -1,6 +1,5 @@
 import { Box, Button, Divider, FormControl, Grid, InputLabel, MenuItem, Modal, Select, Snackbar, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
-import InputPesquisar from "../../components/pesquisar";
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import InputPesquisarAgendamento from "../../components/pesquisarAgendamento";
 
