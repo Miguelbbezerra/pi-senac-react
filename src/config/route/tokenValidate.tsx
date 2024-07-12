@@ -1,3 +1,4 @@
+import {SetItemLocalStorage, GetItemLocalStorage} from '../../helper/localStorage'
 // auth.ts
 export const validateToken = async (token: string): Promise<boolean> => {
     try {
@@ -19,6 +20,9 @@ export const validateToken = async (token: string): Promise<boolean> => {
       }
   
       const data = await response.json();
+      if(!GetItemLocalStorage('user')) {
+        SetItemLocalStorage('user', JSON.stringify(data.decoded.data))
+      }
       return data.valid; // Supondo que a API retorna um objeto { valid: true/false }
     } catch (error) {
       console.error('Token validation error:', error);

@@ -1,59 +1,37 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
+import env from '../config/env'
+import { SetItemLocalStorage, GetItemLocalStorage } from './localStorage'
 
-// Define your service class
-class HttpService {
-  private baseURL: string;
-  private authToken: string;
-  private axiosInstance: AxiosInstance;
+// Cria uma instância do axios
+const api = axios.create({
+  baseURL: env.HOST_API, // Substitua pela URL da sua API
+});
 
-  constructor(baseURL: string, authToken: string) {
-    // Set the base URL for your requests
-    this.baseURL = baseURL;
-    // Set the authorization token
-    this.authToken = authToken;
+// Interceptor de requisição
+api.interceptors.request.use((config) => {
+  config.headers['Content-Type'] = 'application/json';
+  
+  const token = GetItemLocalStorage('token');
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  } else {
 
-    // Create an instance of Axios with default configuration
-    this.axiosInstance = axios.create({
-      baseURL: this.baseURL
-    });
-
-    // Add request interceptor to add authorization header
-    this.axiosInstance.interceptors.request.use(
-      config => {
-        // Add Authorization header with Bearer token
-        config.headers.Authorization = `Bearer ${this.authToken}`;
-        return config;
-      },
-      error => {
-        return Promise.reject(error);
-      }
-    );
   }
+  
+  return config;
+});
 
-  // Method to make a GET request
-  async get(endpoint: string, params: object = {}): Promise<any> {
-    try {
-      // Make the GET request using Axios
-      const response = await this.axiosInstance.get(endpoint, { params });
-      return response.data; // Return the data from the response
-    } catch (error:any) {
-      // Handle any errors
-      console.error('Error making GET request:', error.response?.data || error.message);
-      throw error; // Rethrow the error to be handled by the caller
-    }
+// Interceptor de resposta
+api.interceptors.response.use((response: AxiosResponse) => {
+  if (response.data && response.data.token) {
+    SetItemLocalStorage('token', response.data.token);
   }
+  
+  return response;
+}, (error: AxiosError) => {
+  // Tratamento de erro
+  return Promise.reject(error);
+});
 
-  // Method to make a POST request
-  async post(endpoint: string, data: object = {}): Promise<any> {
-    try {
-      // Make the POST request using Axios
-      const response = await this.axiosInstance.post(endpoint, data);
-      return response.data; // Return the data from the response
-    } catch (error:any) {
-      // Handle any errors
-      console.error('Error making POST request:', error.response?.data || error.message);
-      throw error; // Rethrow the error to be handled by the caller
-    }
-  }
-}
+export default api;
  

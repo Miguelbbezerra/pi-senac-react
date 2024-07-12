@@ -34,8 +34,15 @@ const Home: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        usuario();
-    }, []);
+
+        return (() => {
+           const user = GetItemLocalStorage('user')
+           if(user) {
+
+               setUser(JSON.parse(user))
+           }
+        })
+    }, [GetItemLocalStorage]);
 
     function usuario() {
         const myHeaders = new Headers();
