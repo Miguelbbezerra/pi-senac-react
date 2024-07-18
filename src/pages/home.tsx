@@ -42,31 +42,31 @@ const Home: React.FC = () => {
                setUser(JSON.parse(user))
            }
         })
-    }, [GetItemLocalStorage]);
+    }, []);
 
-    function usuario() {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+    // function usuario() {
+    //     const myHeaders = new Headers();
+    //     myHeaders.append("Content-Type", "application/json");
 
-        const token = GetItemLocalStorage('token');
+    //     const token = GetItemLocalStorage('token');
 
-        const raw = JSON.stringify({
-            "token": token
-        });
+    //     const raw = JSON.stringify({
+    //         "token": token
+    //     });
 
-        const requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            body: raw,
-        };
+    //     const requestOptions = {
+    //         method: "POST",
+    //         headers: myHeaders,
+    //         body: raw,
+    //     };
 
-        fetch("https://api-pi-senac.azurewebsites.net/api/validate-token", requestOptions)
-            .then((response) => response.json())  // Use response.json() para tratar a resposta como JSON
-            .then((data) => {
-                setUser(data.decoded.data)
-            })
-            .catch((error) => console.error('Error:', error));
-    }
+    //     fetch("https://api-pi-senac.azurewebsites.net/api/validate-token", requestOptions)
+    //         .then((response) => response.json())  // Use response.json() para tratar a resposta como JSON
+    //         .then((data) => {
+    //             setUser(data.decoded.data)
+    //         })
+    //         .catch((error) => console.error('Error:', error));
+    // }
 
     return (
         <>
@@ -89,8 +89,8 @@ const Home: React.FC = () => {
             <Divider style={{ margin: '1em 0' }} />
             <Grid container spacing={10}>
                 {data.map((item, index) => (
-                    <Grid item xs={12} sm={12} md={4} lg={4} >
-                        <Card key={index} sx={{ maxWidth: '100%' }}>
+                    <Grid key={index} item xs={12} sm={12} md={4} lg={4} >
+                        <Card sx={{ maxWidth: '100%' }}>
                             <CardMedia
                                 sx={{ height: 200 }}
                                 image={item.image}
