@@ -138,12 +138,12 @@ const TabelaAgendamento = () => {
                                 <TableCell>{agendamento.descricao}</TableCell>
                                 <TableCell>{agendamento.situacao}</TableCell>
                                 <TableCell>
-                                    {agendamento.anamnese !== null && agendamento.anamnese !== undefined ? (
+                                    {agendamento.anamnese ? (
                                         <IconButton color="secondary" onClick={() => AnamneseOpen(agendamento.anamnese.id)}>
                                             <PostAddIcon />
                                         </IconButton>
                                     ) : (
-                                        <IconButton color="secondary" onClick={() => window.location.href = `/admin/ficha/?ida=${agendamento}&idpa=${agendamento.paciente}&idpo=${agendamento.podologo}`}>
+                                        <IconButton color="secondary" onClick={() => window.location.href = `/admin/ficha/?ida=${agendamento.id}&idpa=${agendamento.paciente.id}&idpo=${agendamento.podologo.id}`}>
                                             <PostAddIcon />
                                         </IconButton>
                                     )}

@@ -7,62 +7,9 @@ import { PostAdd } from '@mui/icons-material';
 import { GetItemLocalStorage } from "../helper/localStorage";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 export default function FichaAnamnese() {
 
-
-
-    // GET DE AGENADAMENTO
-    const [agendamentos, setAgendamento] = useState<any[]>([]);
-
-    const fetchAgendamento = useCallback(() => {
-        const myHeaders = new Headers();
-        const token = GetItemLocalStorage('token');
-        myHeaders.append("Authorization", `Bearer ${token}`);
-
-        const requestOptions = {
-            method: "GET",
-            headers: myHeaders,
-        };
-
-        // Obtém a query string da URL atual
-        const queryString = window.location.search;
-
-        // Cria um objeto para armazenar os parâmetros
-        const params = new URLSearchParams(queryString);
-
-        // Obtém o valor de um parâmetro específico
-        const id_agendamento = params.get('ida');
-        console.log(id_agendamento)
-
-
-        fetch(`https://api-pi-senac.azurewebsites.net/agendamento/?id=${id_agendamento}`, requestOptions)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Falha em listar os Agendamento');
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setAgendamento(data);
-            })
-            .catch((error) => console.error(error));
-    }, [])
-    // GET DE AGENADAMENTO
-
-    // TRATANDO DADOS DO FORM DA FICHA
-    const setInput = (event: any, key: string) => {
-        let value = event.target.value
-
-        if (event.target.type === 'checkbox') {
-            value = event.target.checked ? 1 : 0;
-        } else {
-            value = event.target.value;
-        }
-
-        const newFormData = Object.assign({}, formData, { [key]: value })
-        console.log('1')
-        setFormData(newFormData)
-    }
 
     const [formData, setFormData] = useState({
         agendamento: "",
@@ -105,6 +52,59 @@ export default function FichaAnamnese() {
         gestante: 0,
         lactante: 0
     });
+
+    // GET DE AGENADAMENTO
+    const [agendamentos, setAgendamento] = useState<any[]>([]);
+
+    const fetchAgendamento = useCallback(() => {
+        const myHeaders = new Headers();
+        const token = GetItemLocalStorage('token');
+        myHeaders.append("Authorization", `Bearer ${token}`);
+
+        const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+        };
+
+        // Obtém a query string da URL atual
+        const queryString = window.location.search;
+
+        // Cria um objeto para armazenar os parâmetros
+        const params = new URLSearchParams(queryString);
+
+        // Obtém o valor de um parâmetro específico
+        const id_agendamento = params.get('ida');
+        console.log(id_agendamento)
+
+        fetch(`https://api-pi-senac.azurewebsites.net/agendamento/?id=${id_agendamento}`, requestOptions)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Falha em listar os Agendamento');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setAgendamento(data);
+            })
+            .catch((error) => console.error(error));
+    }, [])
+    // GET DE AGENADAMENTO
+
+    // TRATANDO DADOS DO FORM DA FICHA
+    const setInput = (event: any, key: string) => {
+        let value = event.target.value
+
+        if (event.target.type === 'checkbox') {
+            value = event.target.checked ? 1 : 0;
+        } else {
+            value = event.target.value;
+        }
+
+        const newFormData = Object.assign({}, formData, { [key]: value })
+        console.log('1')
+        setFormData(newFormData)
+    }
+
 
     // TRATANDO DADOS DO FORM DA FICHA
 
@@ -165,8 +165,6 @@ export default function FichaAnamnese() {
         const intDor = parseInt(formData.escalaDeDor);
         const intDigitoPressaoPE = parseInt(formData.digitoPressaoPE);
         const intDigitoPressaoPD = parseInt(formData.digitoPressaoPD);
-        const intPerfusoesPE = parseInt(formData.perfusoesPE);
-        const intPerfusoesPD = parseInt(formData.perfusoesPD);
 
         const { paciente, podologo, escalaDeDor, ...newFormData } = formData;
 
@@ -175,8 +173,6 @@ export default function FichaAnamnese() {
             escalaDeDor: intDor,
             digitoPressaoPE: intDigitoPressaoPE,
             digitoPressaoPD: intDigitoPressaoPD,
-            perfusoesPe: intPerfusoesPE,
-            perfusoesPd: intPerfusoesPD,
             paciente: intPacienteId,
             agendamento: intAgendamentoId,
             podologo: intPodologoId
@@ -206,10 +202,11 @@ export default function FichaAnamnese() {
             <Grid container spacing={2}>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                     <Link to="/admin/agendamento/"
-                    style={{ display: "flex", alignItems: "center", flexDirection: 'row',
-                        textDecoration: 'none', color: '#1976d2', 
-                    }}>
-                        <ArrowBackIcon/> Voltar
+                        style={{
+                            display: "flex", alignItems: "center", flexDirection: 'row',
+                            textDecoration: 'none', color: '#1976d2',
+                        }}>
+                        <ArrowBackIcon /> Voltar
                     </Link>
                     <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
                 </Grid>
@@ -236,7 +233,7 @@ export default function FichaAnamnese() {
                                 disabled
                             >
                                 {agendamentos.map((agendamento) => (
-                                    <option selected value={agendamento.podologo}>{agendamento.podologo.nomeCompleto}</option>
+                                    <option selected value={formData.podologo}>{agendamento.podologo.nomeCompleto}</option>
                                 ))}
                             </select>
                         </FormControl>
@@ -257,7 +254,7 @@ export default function FichaAnamnese() {
                                 disabled
                             >
                                 {agendamentos.map((agendamento) => (
-                                    <option selected value={agendamento.id}>{new Date(agendamento.dataHora).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}, {new Date(agendamento.dataHora).toLocaleTimeString()}</option>
+                                    <option selected value={formData.agendamento}>{new Date(agendamento.dataHora).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}, {new Date(agendamento.dataHora).toLocaleTimeString()}</option>
                                 ))}
                             </select>
                         </FormControl>
@@ -276,7 +273,6 @@ export default function FichaAnamnese() {
                             {/* ------------------------INICIO DADOS PESSOAIS------------------------------ */}
 
                             <Grid item lg={3} md={6} sm={12} xs={12} >
-                                {/* <label style={{ fontSize: "14px" }}>Paciente</label> */}
                                 <select
                                     id="demo-simple-select"
                                     value={formData.paciente}
@@ -289,7 +285,7 @@ export default function FichaAnamnese() {
                                 // disabled
                                 >
                                     {agendamentos.map((agendamento) => (
-                                        <option selected value={agendamento.paciente.id}>{agendamento.paciente.nomeCompleto}</option>
+                                        <option selected value={formData.paciente}>{agendamento.paciente.nomeCompleto}</option>
                                     ))}
                                 </select>
                             </Grid>
@@ -391,7 +387,7 @@ export default function FichaAnamnese() {
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
                                     <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                        <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={formData.perfusoesPE} onChange={(event) => setInput(event, 'perfusoesPe')}></TextField>
+                                        <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={formData.perfusoesPE} onChange={(event) => setInput(event, 'perfusoesPE')}></TextField>
                                     </Grid>
                                     {/* <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                         <TextField margin="none" label="Digito de pressão pé esquerdo" sx={{ width: '100%' }} value={formData.digitoPressaoPE} onChange={(event) => setInput(event, 'digitoPressaoPE')}></TextField>
@@ -414,7 +410,7 @@ export default function FichaAnamnese() {
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
                                     <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
-                                        <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={formData.perfusoesPD} onChange={(event) => setInput(event, 'perfusoesPd')}></TextField>
+                                        <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={formData.perfusoesPD} onChange={(event) => setInput(event, 'perfusoesPD')}></TextField>
                                     </Grid>
 
                                     {/* <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >

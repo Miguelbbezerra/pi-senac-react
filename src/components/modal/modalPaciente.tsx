@@ -3,74 +3,25 @@ import { useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { GetItemLocalStorage } from "../../helper/localStorage";
 import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../../components/mask/MaskInput";
 import InputPesquisarPaciente from "../../components/pesquisarPaciente";
+import api from "../../helper/http";
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '80%',
+    height: '100%',
+    bgcolor: 'background.paper',
+    border: '2px solid #1976d2',
+    borderRadius: '0.5em',
+    boxShadow: 24,
+    p: 4,
+};
 
 const ModalPaciente = () => {
-
-    // INICIO SET DE PACIENTES
-
-    function salvarPaciente() {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        const token = GetItemLocalStorage('token');
-        myHeaders.append("Authorization", `Bearer ${token}`);
-
-        const dataNascimento = dayjs(formData.dataNascimento).format('YYYY-MM-DD')
-        console.log("data nascimento", dataNascimento)
-        const newFormData = Object.assign({}, formData, { dataNascimento: dataNascimento })
-
-        const raw = JSON.stringify(newFormData);
-
-        fetch("https://api-pi-senac.azurewebsites.net/paciente", {
-            method: "POST",
-            headers: myHeaders,
-            body: raw,
-        })
-            .then(async (response) => {
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Erro ao salvar Paciente');
-                }
-                return response.text();
-            })
-            .then((result) => {
-                console.log(result);
-                window.location.reload();
-            })
-            .catch((error) => {
-                console.error(error);
-                setSnackbarMessage(error.message);
-                setSnackbarOpen(true);
-            });
-
-
-    }
-    // FIM SET DE PACIENTES
-
-    // INICIO TRATANDO DADOS DE PACIENTES
-    const setData = (event: any, key: string) => {
-
-        const value = dayjs(event).format('YYYY-MM-DD')
-
-        // console.log(dayjs(event).format('YYYY-MM-DD'))
-        // console.log(key)
-
-        const newFormData = Object.assign({}, formData, { [key]: value })
-
-        setFormData(newFormData)
-    }
-
-    const setInput = (event: any, key: string) => {
-
-        const value = event.target.value
-        const newFormData = Object.assign({}, formData, { [key]: value })
-
-        setFormData(newFormData)
-    }
-
 
     const [formData, setFormData] = useState({
         nomeCompleto: "",
@@ -86,33 +37,46 @@ const ModalPaciente = () => {
         cidade: ""
     })
 
-    // FIM TRATANDO DADOS DE PACIENTES
-
-    // INICIO COD MODAL
-
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    // FIM COD MODAL
-
-    const style = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '80%',
-        height: '100%',
-        bgcolor: 'background.paper',
-        border: '2px solid #1976d2',
-        borderRadius: '0.5em',
-        boxShadow: 24,
-        p: 4,
-    };
-
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const handleSnackbarClose = () => setSnackbarOpen(false);
+
+    async function salvarPaciente() {
+        try {
+            const dataNascimento = dayjs(formData.dataNascimento).format('YYYY-MM-DD')
+            console.log("data nascimento", dataNascimento)
+            const newFormData = Object.assign({}, formData, { dataNascimento: dataNascimento })
+
+            const raw = JSON.stringify(newFormData);
+            await api.post('paciente', raw)
+            return window.location.reload()
+
+        } catch (error: any) {
+            setSnackbarMessage(error.message);
+            setSnackbarOpen(true);
+        }
+    }
+
+    const setData = (event: any, key: string) => {
+
+        const value = dayjs(event).format('YYYY-MM-DD')
+
+        const newFormData = Object.assign({}, formData, { [key]: value })
+
+        setFormData(newFormData)
+    }
+
+    const setInput = (event: any, key: string) => {
+
+        const value = event.target.value
+        const newFormData = Object.assign({}, formData, { [key]: value })
+
+        setFormData(newFormData)
+    }
 
     return (
         <>
@@ -131,9 +95,7 @@ const ModalPaciente = () => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        <div>
-                            <h4>Cadastro de Paciente</h4>
-                        </div>
+                        <h4>Cadastro de Paciente</h4>
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <Divider style={{ margin: '1em 0' }} />
