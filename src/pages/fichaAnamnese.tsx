@@ -55,8 +55,9 @@ export default function FichaAnamnese() {
 
     // GET DE AGENADAMENTO
     const [agendamentos, setAgendamento] = useState<any[]>([]);
+    const [fetchExecutado, setFetchExecutado] = useState(false);
 
-    const fetchAgendamento = useCallback(() => {
+    const fetchAgendamento = useCallback((id_agendamento: any) => {
         const myHeaders = new Headers();
         const token = GetItemLocalStorage('token');
         myHeaders.append("Authorization", `Bearer ${token}`);
@@ -66,17 +67,7 @@ export default function FichaAnamnese() {
             headers: myHeaders,
         };
 
-        // Obtém a query string da URL atual
-        const queryString = window.location.search;
-
-        // Cria um objeto para armazenar os parâmetros
-        const params = new URLSearchParams(queryString);
-
-        // Obtém o valor de um parâmetro específico
-        const id_agendamento = params.get('ida');
-        console.log(id_agendamento)
-
-        fetch(`https://api-pi-senac.azurewebsites.net/agendamento/?id=${id_agendamento}`, requestOptions)
+        fetch(`https://api-pi-senac.azurewebsites.net/agendamento?id=${id_agendamento}`, requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Falha em listar os Agendamento');
@@ -93,73 +84,22 @@ export default function FichaAnamnese() {
     // TRATANDO DADOS DO FORM DA FICHA
     const setInput = (event: any, key: string) => {
         let value = event.target.value
-
         if (event.target.type === 'checkbox') {
             value = event.target.checked ? 1 : 0;
-        } else {
-            value = event.target.value;
         }
-
         const newFormData = Object.assign({}, formData, { [key]: value })
-        console.log('1')
         setFormData(newFormData)
     }
 
-
-    // TRATANDO DADOS DO FORM DA FICHA
-
-
-    const [fetchExecutado, setFetchExecutado] = useState(false);
-    //GET NA API DE DAS TABELAS ABAIXO    
-    useEffect(() => {
-        const fetchData = async () => {
-            // Se o fetchAgendamento já foi executado ou se fetchExecutado for verdadeiro, não execute novamente
-            if (!fetchExecutado) {
-                await fetchAgendamento();
-                setFetchExecutado(true); // Marcar que o fetchAgendamento foi executado
-            }
-
-            // Se houver agendamentos e não houver um valor definido para paciente no formData,
-            // então defina o valor do primeiro paciente encontrado nos agendamentos
-            if (agendamentos.length > 0 && !formData.paciente) {
-                const selectedPaciente = agendamentos[0].paciente;
-                const selectedPodologo = agendamentos[0].podologo.id;
-                const selectedAgendamento = agendamentos[0].id;
-                const birthDate = new Date(selectedPaciente.dataNascimento);
-                const today = new Date();
-                let age = today.getFullYear() - birthDate.getFullYear();
-                const month = today.getMonth() - birthDate.getMonth();
-                if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-                    age--;
-                }
-
-                const nFormData = {
-                    ...formData,
-                    agendamento: selectedAgendamento,
-                    podologo: selectedPodologo,
-                    paciente: selectedPaciente.id,
-                    genero: selectedPaciente.genero,
-                    idade: age.toString()
-                };
-
-                setFormData(nFormData);
-            }
-        };
-
-        fetchData();
-    }, [fetchAgendamento, fetchExecutado, agendamentos, formData]);
-    //GET NA API DE DAS TABELAS FIM  
-
-
     //SET DE anamnese
-
     function salvarAnamnese() {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         const token = GetItemLocalStorage('token');
         myHeaders.append("Authorization", `Bearer ${token}`);
-
-        const intPacienteId = parseInt(formData.paciente);
+        const params = new URLSearchParams(window.location.search);
+        const id_paciente = params.get('idpa');
+        // const intPacienteId = parseInt(formData.paciente.id);
         const intPodologoId = parseInt(formData.podologo);
         const intAgendamentoId = parseInt(formData.agendamento);
         const intDor = parseInt(formData.escalaDeDor);
@@ -173,7 +113,7 @@ export default function FichaAnamnese() {
             escalaDeDor: intDor,
             digitoPressaoPE: intDigitoPressaoPE,
             digitoPressaoPD: intDigitoPressaoPD,
-            paciente: intPacienteId,
+            paciente: id_paciente,
             agendamento: intAgendamentoId,
             podologo: intPodologoId
         };
@@ -194,8 +134,44 @@ export default function FichaAnamnese() {
             })
             .catch((error) => console.error(error));
     }
-
     //SET DE anamnese
+
+    //GET NA API DE DAS TABELAS ABAIXO    
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!fetchExecutado) {
+                const params = new URLSearchParams(window.location.search);
+                const id_agendamento = await params.get('ida');
+                await fetchAgendamento(id_agendamento);
+                setFetchExecutado(true);
+            }
+
+            if (agendamentos.length > 0 && !formData.paciente) {
+                const birthDate = new Date(agendamentos[0].paciente.dataNascimento);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const month = today.getMonth() - birthDate.getMonth();
+                if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+
+                const nFormData = {
+                    ...formData,
+                    agendamento: agendamentos[0].id,
+                    podologo: agendamentos[0].podologo.id,
+                    paciente: agendamentos[0].paciente,
+                    genero: agendamentos[0].paciente.genero,
+                    idade: age.toString()
+                };
+
+                setFormData(nFormData);
+            }
+        };
+
+        fetchData();
+    }, [fetchAgendamento, fetchExecutado, agendamentos, formData]);
+    //GET NA API DE DAS TABELAS FIM  
+
 
     return (
         <Paper elevation={2} sx={{ padding: '1em' }}>
