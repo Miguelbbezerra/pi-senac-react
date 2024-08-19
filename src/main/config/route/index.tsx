@@ -1,12 +1,11 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom";
-import ResponsiveDrawer from "../../../components/layout/core/ResponsiveDrawer";
-import PersistentDrawerLayout from "../../../components/layout/core/PersistentDrawerLayout";
+import PersistentDrawer from "../../../components/layout/core/PersistentDrawer";
 import { Paciente } from "../../../components/paciente";
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <PersistentDrawerLayout />,
+        element: <PersistentDrawer />,
         children: [
             {
                 path: '/usuario',

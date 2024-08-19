@@ -27,14 +27,9 @@ import { Button } from '@mui/material';
 import { DeleteItemLocalStorage } from '../../../helper/localStorage';
 import { useNavigate } from 'react-router-dom';
 interface Props {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * Remove this when copying and pasting into your project.
-     */
     window?: () => Window;
     children?: JSX.Element
 }
-
 
 const drawerWidth = 240;
 
@@ -82,7 +77,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
 }));
@@ -101,25 +95,20 @@ export default function PersistentDrawerLeft(props: Props) {
     };
 
     const navigate = useNavigate();
-    //FUNCAO DE LOGOUT
+
     async function logOut() {
         try {
-            console.log('teste entrou')
-
             await DeleteItemLocalStorage('token')
-
             navigate('/');
         } catch (error) {
             console.warn(error)
         }
-
     }
-    //FUNCAO DE LOGOUT
 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={open} >
                 <Toolbar sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
                     <IconButton
                         color="inherit"
@@ -134,6 +123,7 @@ export default function PersistentDrawerLeft(props: Props) {
                 </Toolbar>
             </AppBar>
             <Drawer
+                onMouseLeave={() => setOpen(false)}
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
@@ -141,7 +131,6 @@ export default function PersistentDrawerLeft(props: Props) {
                         width: drawerWidth,
                         boxSizing: 'border-box',
                     },
-
                 }}
                 variant="persistent"
                 anchor="left"
@@ -176,9 +165,8 @@ export default function PersistentDrawerLeft(props: Props) {
                     </div>
                 </List>
                 <Divider />
-
             </Drawer>
-            <Main open={open}>
+            <Main open={open} onClick={() => setOpen(false)}>
                 <DrawerHeader />
                 {children}
             </Main>
