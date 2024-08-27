@@ -25,14 +25,22 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
     };
 
     //GET NA API DE DAS TABELAS ABAIXO
+<<<<<<< HEAD
     useEffect(() => {
         fetchPacientes();
         fetchPodologo();
     }, []);
+=======
+    // useEffect(() => {
+    //     fetchPacientes();
+    //     fetchPodologo();
+    // }, []);
+>>>>>>> refactor-login
     //GET NA API DE DAS TABELAS FIM    
 
 
     // GET DE PACIENTES PARA SELECT NO AGENDAMENTO
+<<<<<<< HEAD
     const [pacientes, setPacientes] = useState<any[]>([]);
 
 
@@ -86,6 +94,71 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
             })
             .catch((error) => console.error(error));
     }
+=======
+    // const [pacientes, setPacientes] = useState<any[]>([]);
+
+
+    // function fetchPacientes() {
+    //     const myHeaders = new Headers();
+    //     const token = GetItemLocalStorage('token');
+    //     myHeaders.append("Authorization", `Bearer ${token}`);
+
+    //     const requestOptions = {
+    //         method: "GET",
+    //         headers: myHeaders,
+    //     };
+
+    //     fetch("https://api-pi-senac.azurewebsites.net/paciente", requestOptions)
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error('Falha em listar os Pacientes');
+    //             }
+    //             return response.json();
+    //         })
+    //         .then((data) => {
+    //             setPacientes(data);
+    //         })
+    //         .catch((error) => console.error(error));
+    // }
+    // GET DE PACIENTES PARA SELECT NO AGENDAMENTO
+
+    // GET DE PODOLOGOS PARA SELECT DE AGENDAMENTO  
+    // const [podologos, setPodologo] = useState<any[]>([]);
+
+    const [formData, setFormData] = useState({
+        data: "",
+        hora: "",
+        descricao: "",
+        situacao: "Agendada",
+        paciente: "",
+        podologo: ""
+    })
+
+    // function fetchPodologo() {
+
+
+    //     const myHeaders = new Headers();
+    //     const token = GetItemLocalStorage('token');
+    //     myHeaders.append("Authorization", `Bearer ${token}`);
+
+    //     const requestOptions = {
+    //         method: "GET",
+    //         headers: myHeaders,
+    //     };
+
+    //     fetch("https://api-pi-senac.azurewebsites.net/podologo", requestOptions)
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error('Falha em listar os Podologo');
+    //             }
+    //             return response.json();
+    //         })
+    //         .then((data) => {
+    //             setPodologo(data);
+    //         })
+    //         .catch((error) => console.error(error));
+    // }
+>>>>>>> refactor-login
     // GET DE PODOLOGOS PARA SELECT DE AGENDAMENTO
 
     // INICIO SET
@@ -182,7 +255,11 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
         };
 
         fetchData();
+<<<<<<< HEAD
     }, []);
+=======
+    }, [formData, id, pacAndPod]);
+>>>>>>> refactor-login
 
 
     function fetchAgendamentoUnico(id: number) {
@@ -221,6 +298,7 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
     }
 
 
+<<<<<<< HEAD
     const [formData, setFormData] = useState({
         data: "",
         hora: "",
@@ -229,6 +307,9 @@ const ModalEditarAgendamento: React.FC<ModalEditarProps> = ({ openFicha, fichaCl
         paciente: "",
         podologo: ""
     })
+=======
+    
+>>>>>>> refactor-login
 
     return (
         <Modal

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Box, Button, Divider, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useState } from "react";
@@ -5,6 +6,11 @@ import { useLocation } from "react-router-dom";
 import { DatePicker, DateTimePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+=======
+import { Box, Button, Divider, FormControl, Grid, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material"
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+>>>>>>> refactor-login
 import { GetItemLocalStorage } from "../helper/localStorage";
 
 interface FormFiltro {
@@ -46,6 +52,7 @@ const InputPesquisarAgendamento = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+<<<<<<< HEAD
     // AREA DO MODAL
 
 
@@ -86,6 +93,8 @@ const InputPesquisarAgendamento = () => {
         return /[a-zA-Z]/.test(str);
     }
 
+=======
+>>>>>>> refactor-login
     const [formFiltro, setFormFiltro] = useState<FormFiltro>({
         paciente: "",
         podologo: "",

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react"
+=======
+import { useCallback, useEffect, useState } from "react"
+>>>>>>> refactor-login
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -7,6 +11,7 @@ import { PostAdd } from '@mui/icons-material';
 import { GetItemLocalStorage } from "../helper/localStorage";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+<<<<<<< HEAD
 export default function FichaAnamnese() {
 
 
@@ -64,6 +69,12 @@ export default function FichaAnamnese() {
         setFormData(newFormData)
     }
 
+=======
+
+export default function FichaAnamnese() {
+
+
+>>>>>>> refactor-login
     const [formData, setFormData] = useState({
         agendamento: "",
         paciente: "",
@@ -106,6 +117,7 @@ export default function FichaAnamnese() {
         lactante: 0
     });
 
+<<<<<<< HEAD
     // TRATANDO DADOS DO FORM DA FICHA
 
 
@@ -153,20 +165,70 @@ export default function FichaAnamnese() {
 
     //SET DE anamnese
 
+=======
+    // GET DE AGENADAMENTO
+    const [agendamentos, setAgendamento] = useState<any[]>([]);
+    const [fetchExecutado, setFetchExecutado] = useState(false);
+
+    const fetchAgendamento = useCallback((id_agendamento: any) => {
+        const myHeaders = new Headers();
+        const token = GetItemLocalStorage('token');
+        myHeaders.append("Authorization", `Bearer ${token}`);
+
+        const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+        };
+
+        fetch(`https://api-pi-senac.azurewebsites.net/agendamento?id=${id_agendamento}`, requestOptions)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Falha em listar os Agendamento');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setAgendamento(data);
+            })
+            .catch((error) => console.error(error));
+    }, [])
+    // GET DE AGENADAMENTO
+
+    // TRATANDO DADOS DO FORM DA FICHA
+    const setInput = (event: any, key: string) => {
+        let value = event.target.value
+        if (event.target.type === 'checkbox') {
+            value = event.target.checked ? 1 : 0;
+        }
+        const newFormData = Object.assign({}, formData, { [key]: value })
+        setFormData(newFormData)
+    }
+
+    //SET DE anamnese
+>>>>>>> refactor-login
     function salvarAnamnese() {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         const token = GetItemLocalStorage('token');
         myHeaders.append("Authorization", `Bearer ${token}`);
+<<<<<<< HEAD
 
         const intPacienteId = parseInt(formData.paciente);
+=======
+        const params = new URLSearchParams(window.location.search);
+        const id_paciente = params.get('idpa');
+        // const intPacienteId = parseInt(formData.paciente.id);
+>>>>>>> refactor-login
         const intPodologoId = parseInt(formData.podologo);
         const intAgendamentoId = parseInt(formData.agendamento);
         const intDor = parseInt(formData.escalaDeDor);
         const intDigitoPressaoPE = parseInt(formData.digitoPressaoPE);
         const intDigitoPressaoPD = parseInt(formData.digitoPressaoPD);
+<<<<<<< HEAD
         const intPerfusoesPE = parseInt(formData.perfusoesPE);
         const intPerfusoesPD = parseInt(formData.perfusoesPD);
+=======
+>>>>>>> refactor-login
 
         const { paciente, podologo, escalaDeDor, ...newFormData } = formData;
 
@@ -175,9 +237,13 @@ export default function FichaAnamnese() {
             escalaDeDor: intDor,
             digitoPressaoPE: intDigitoPressaoPE,
             digitoPressaoPD: intDigitoPressaoPD,
+<<<<<<< HEAD
             perfusoesPe: intPerfusoesPE,
             perfusoesPd: intPerfusoesPD,
             paciente: intPacienteId,
+=======
+            paciente: id_paciente,
+>>>>>>> refactor-login
             agendamento: intAgendamentoId,
             podologo: intPodologoId
         };
@@ -198,18 +264,68 @@ export default function FichaAnamnese() {
             })
             .catch((error) => console.error(error));
     }
+<<<<<<< HEAD
 
     //SET DE anamnese
 
+=======
+    //SET DE anamnese
+
+    //GET NA API DE DAS TABELAS ABAIXO    
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!fetchExecutado) {
+                const params = new URLSearchParams(window.location.search);
+                const id_agendamento = await params.get('ida');
+                await fetchAgendamento(id_agendamento);
+                setFetchExecutado(true);
+            }
+
+            if (agendamentos.length > 0 && !formData.paciente) {
+                const birthDate = new Date(agendamentos[0].paciente.dataNascimento);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const month = today.getMonth() - birthDate.getMonth();
+                if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+
+                const nFormData = {
+                    ...formData,
+                    agendamento: agendamentos[0].id,
+                    podologo: agendamentos[0].podologo.id,
+                    paciente: agendamentos[0].paciente,
+                    genero: agendamentos[0].paciente.genero,
+                    idade: age.toString()
+                };
+
+                setFormData(nFormData);
+            }
+        };
+
+        fetchData();
+    }, [fetchAgendamento, fetchExecutado, agendamentos, formData]);
+    //GET NA API DE DAS TABELAS FIM  
+
+
+>>>>>>> refactor-login
     return (
         <Paper elevation={2} sx={{ padding: '1em' }}>
             <Grid container spacing={2}>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                     <Link to="/admin/agendamento/"
+<<<<<<< HEAD
                     style={{ display: "flex", alignItems: "center", flexDirection: 'row',
                         textDecoration: 'none', color: '#1976d2', 
                     }}>
                         <ArrowBackIcon/> Voltar
+=======
+                        style={{
+                            display: "flex", alignItems: "center", flexDirection: 'row',
+                            textDecoration: 'none', color: '#1976d2',
+                        }}>
+                        <ArrowBackIcon /> Voltar
+>>>>>>> refactor-login
                     </Link>
                     <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
                 </Grid>
@@ -236,7 +352,11 @@ export default function FichaAnamnese() {
                                 disabled
                             >
                                 {agendamentos.map((agendamento) => (
+<<<<<<< HEAD
                                     <option selected value={agendamento.podologo}>{agendamento.podologo.nomeCompleto}</option>
+=======
+                                    <option selected value={formData.podologo}>{agendamento.podologo.nomeCompleto}</option>
+>>>>>>> refactor-login
                                 ))}
                             </select>
                         </FormControl>
@@ -257,7 +377,11 @@ export default function FichaAnamnese() {
                                 disabled
                             >
                                 {agendamentos.map((agendamento) => (
+<<<<<<< HEAD
                                     <option selected value={agendamento.id}>{new Date(agendamento.dataHora).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}, {new Date(agendamento.dataHora).toLocaleTimeString()}</option>
+=======
+                                    <option selected value={formData.agendamento}>{new Date(agendamento.dataHora).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}, {new Date(agendamento.dataHora).toLocaleTimeString()}</option>
+>>>>>>> refactor-login
                                 ))}
                             </select>
                         </FormControl>
@@ -276,7 +400,10 @@ export default function FichaAnamnese() {
                             {/* ------------------------INICIO DADOS PESSOAIS------------------------------ */}
 
                             <Grid item lg={3} md={6} sm={12} xs={12} >
+<<<<<<< HEAD
                                 {/* <label style={{ fontSize: "14px" }}>Paciente</label> */}
+=======
+>>>>>>> refactor-login
                                 <select
                                     id="demo-simple-select"
                                     value={formData.paciente}
@@ -289,7 +416,11 @@ export default function FichaAnamnese() {
                                 // disabled
                                 >
                                     {agendamentos.map((agendamento) => (
+<<<<<<< HEAD
                                         <option selected value={agendamento.paciente.id}>{agendamento.paciente.nomeCompleto}</option>
+=======
+                                        <option selected value={formData.paciente}>{agendamento.paciente.nomeCompleto}</option>
+>>>>>>> refactor-login
                                     ))}
                                 </select>
                             </Grid>
@@ -391,7 +522,11 @@ export default function FichaAnamnese() {
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
                                     <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+<<<<<<< HEAD
                                         <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={formData.perfusoesPE} onChange={(event) => setInput(event, 'perfusoesPe')}></TextField>
+=======
+                                        <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={formData.perfusoesPE} onChange={(event) => setInput(event, 'perfusoesPE')}></TextField>
+>>>>>>> refactor-login
                                     </Grid>
                                     {/* <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                         <TextField margin="none" label="Digito de pressão pé esquerdo" sx={{ width: '100%' }} value={formData.digitoPressaoPE} onChange={(event) => setInput(event, 'digitoPressaoPE')}></TextField>
@@ -414,7 +549,11 @@ export default function FichaAnamnese() {
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
                                     <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+<<<<<<< HEAD
                                         <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={formData.perfusoesPD} onChange={(event) => setInput(event, 'perfusoesPd')}></TextField>
+=======
+                                        <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={formData.perfusoesPD} onChange={(event) => setInput(event, 'perfusoesPD')}></TextField>
+>>>>>>> refactor-login
                                     </Grid>
 
                                     {/* <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >

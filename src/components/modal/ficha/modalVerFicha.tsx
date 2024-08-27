@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Box, Divider, Modal, Typography, Grid, TextField, FormControlLabel, Checkbox, FormControl, Button } from "@mui/material"
+=======
+import { Box, Divider, Modal, Typography, Grid, TextField, FormControlLabel, Checkbox, FormControl } from "@mui/material"
+>>>>>>> refactor-login
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../../helper/localStorage";
 
@@ -7,6 +11,25 @@ interface ModalEditarProps {
     fichaClose: () => void;
     id_ficha: number;
 }
+<<<<<<< HEAD
+=======
+const style = {
+    overflowX: 'auto',
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '80%',
+    height: '100vh',
+    margin: '1em 0',
+    bgcolor: 'background.paper',
+    border: '2px solid #1976d2',
+    borderRadius: '0.5em',
+    boxShadow: 24,
+    p: 4,
+};
+
+>>>>>>> refactor-login
 
 const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_ficha }) => {
     const [formData, setFormData] = useState({
@@ -33,8 +56,13 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
         escalaDeDor: "",
         pinosMarcapasso: "",
         pressaoArterial: "",
+<<<<<<< HEAD
         perfusoesPe: "",
         perfusoesPd: "",
+=======
+        perfusoesPE: "",
+        perfusoesPD: "",
+>>>>>>> refactor-login
         digitoPressaoPE: 0,
         digitoPressaoPD: 0,
         formatoUnhasPE: "",
@@ -51,6 +79,7 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
         lactante: 0
     });
 
+<<<<<<< HEAD
     const style = {
         overflowX: 'auto',
         position: 'absolute' as 'absolute',
@@ -67,6 +96,8 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
         p: 4,
     };
 
+=======
+>>>>>>> refactor-login
     // inicio GET
 
     const [fichas, setFichaState] = useState<any[]>([]);
@@ -102,7 +133,10 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
             })
             .catch((error) => {
                 console.error(error);
+<<<<<<< HEAD
                 // Retorna um objeto vazio caso ocorra um erro para evitar que a Promise seja rejeitada sem motivo
+=======
+>>>>>>> refactor-login
                 return {};
             });
     }
@@ -121,12 +155,18 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
         setFormData(newFormData)
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-login
     // TRATANDO DADOS DO FORM DA FICHA
 
     return (
         <Modal
+<<<<<<< HEAD
             // sx={{ overflowX: 'auto'}}
+=======
+>>>>>>> refactor-login
             open={openFicha}
             onClose={fichaClose}
             aria-labelledby="modal-modal-title"
@@ -136,7 +176,11 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     <div>
                         {fichas.map((ficha, index) => (
+<<<<<<< HEAD
                             <h4>Ficha Do(a) {ficha.paciente.nomeCompleto}</h4>
+=======
+                            <h4 key={index}>Ficha Do(a) {ficha.paciente.nomeCompleto}</h4>
+>>>>>>> refactor-login
                         ))}
                     </div>
                 </Typography>
@@ -146,9 +190,14 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                         <FormControl fullWidth >
                             <form autoComplete="off" onSubmit={(event) => { event.preventDefault() }}>
                                 {fichas.map((ficha, index) => (
+<<<<<<< HEAD
                                     <Grid container spacing={2}>
                                         {/* ------------------------INICIO DADOS PESSOAIS------------------------------ */}
 
+=======
+                                    <Grid container spacing={2} key={index}>
+                                        {/* ------------------------INICIO DADOS PESSOAIS------------------------------ */}
+>>>>>>> refactor-login
                                         <Grid item lg={3} md={6} sm={12} xs={12} >
                                             <TextField margin="none" label="Gênero" sx={{ width: '100%' }} value={ficha.paciente.genero} onChange={(event) => setInput(event, 'genero')}></TextField>
                                         </Grid>
@@ -183,6 +232,7 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                             <TextField margin="none" label="Tipo de meia que mais usa" sx={{ width: '100%' }} value={ficha.tipoMeia} onChange={(event) => setInput(event, 'tipoMeia')}></TextField>
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
+<<<<<<< HEAD
                                             <FormControlLabel required control={<Checkbox checked={ficha.praticaEsporte == 1} value={ficha.praticaEsporte} />} label="Pratica esporte" />
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
@@ -190,6 +240,15 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
                                             <FormControlLabel required control={<Checkbox checked={ficha.lactante == 1} value={ficha.lactante} />} label="Lactante" />
+=======
+                                            <FormControlLabel required control={<Checkbox checked={ficha.praticaEsporte} value={ficha.praticaEsporte} />} label="Pratica esporte" />
+                                        </Grid>
+                                        <Grid item lg={2} md={4} sm={6} xs={12} >
+                                            <FormControlLabel required control={<Checkbox checked={ficha.gestante} value={ficha.gestante} />} label="Gestante" />
+                                        </Grid>
+                                        <Grid item lg={2} md={4} sm={6} xs={12} >
+                                            <FormControlLabel required control={<Checkbox checked={ficha.lactante} value={ficha.lactante} />} label="Lactante" />
+>>>>>>> refactor-login
                                         </Grid>
                                         {/* ------------------------FIM DADOS PESSOAIS------------------------------ */}
 
@@ -197,9 +256,13 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                         <Grid item lg={12} md={12} sm={12} xs={12} >
                                             <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
                                             <h3>Prontuário Médico</h3>
+<<<<<<< HEAD
 
                                         </Grid>
 
+=======
+                                        </Grid>
+>>>>>>> refactor-login
                                         <Grid item lg={4} md={6} sm={12} xs={12} >
                                             <TextField margin="none" label="Tipo sanguíneo" sx={{ width: '100%' }} value={ficha.tipagemSanguinea} onChange={(event) => setInput(event, 'tipagemSanguinea')}></TextField>
                                         </Grid>
@@ -231,6 +294,7 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                             <TextField margin="none" label="Glicemia" sx={{ width: '100%' }} value={ficha.glicemia} onChange={(event) => setInput(event, 'glicemia')}></TextField>
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
+<<<<<<< HEAD
                                             <FormControlLabel required control={<Checkbox checked={ficha.etilista == 1} value={ficha.etilista} />} label="Etilista" />
                                         </Grid>
                                         <Grid item lg={2} md={4} sm={6} xs={12} >
@@ -241,17 +305,32 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                             <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
                                         </Grid>
 
+=======
+                                            <FormControlLabel required control={<Checkbox checked={ficha.etilista} value={ficha.etilista} />} label="Etilista" />
+                                        </Grid>
+                                        <Grid item lg={2} md={4} sm={6} xs={12} >
+                                            <FormControlLabel required control={<Checkbox checked={ficha.tabagista} value={ficha.tabagista} />} label="Tabagista" />
+                                        </Grid>
+                                        <Grid item lg={12} md={12} sm={12} xs={12} >
+                                            <Divider style={{ margin: '1em 0', color: 'gray' }} ></Divider>
+                                        </Grid>
+>>>>>>> refactor-login
                                         <Grid item lg={6} md={6} sm={12} xs={12} >
                                             <Grid item lg={12} md={12} sm={12} xs={12} >
                                                 <h3>Pé Esquerdo</h3>
                                             </Grid>
                                             <Grid item lg={12} md={12} sm={12} xs={12}>
                                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+<<<<<<< HEAD
                                                     <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={ficha.perfusoesPe} onChange={(event) => setInput(event, 'perfusoesPe')}></TextField>
                                                 </Grid>
                                                 {/* <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                                     <TextField margin="none" label="Digito de pressão pé esquerdo" sx={{ width: '100%' }} value={ficha.digitoPressaoPE} onChange={(event) => setInput(event, 'digitoPressaoPE')}></TextField>
                                                 </Grid> */}
+=======
+                                                    <TextField margin="none" label="Perfusões pé esquerdo" sx={{ width: '100%' }} value={ficha.perfusoesPE} onChange={(event) => setInput(event, 'perfusoesPE')}></TextField>
+                                                </Grid>
+>>>>>>> refactor-login
                                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                                     <TextField margin="none" label="Formato unhas pé esquerdo" sx={{ width: '100%' }} value={ficha.formatoUnhasPE} onChange={(event) => setInput(event, 'formatoUnhasPE')}></TextField>
                                                 </Grid>
@@ -263,13 +342,17 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                                 </Grid>
                                             </Grid>
                                         </Grid>
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-login
                                         <Grid item lg={6} md={6} sm={12} xs={12} >
                                             <Grid item lg={12} md={12} sm={12} xs={12} >
                                                 <h3>Pé Direito</h3>
                                             </Grid>
                                             <Grid item lg={12} md={12} sm={12} xs={12}>
                                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
+<<<<<<< HEAD
                                                     <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={ficha.perfusoesPd} onChange={(event) => setInput(event, 'perfusoesPd')}></TextField>
                                                 </Grid>
 {/* 
@@ -277,6 +360,10 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                                     <TextField margin="none" label="Digito de pressão pé direito" sx={{ width: '100%' }} value={ficha.digitoPressaoPD} onChange={(event) => setInput(event, 'digitoPressaoPD')}></TextField>
                                                 </Grid> */}
 
+=======
+                                                    <TextField margin="none" label="Perfusões pé direito" sx={{ width: '100%' }} value={ficha.perfusoesPD} onChange={(event) => setInput(event, 'perfusoesPD')}></TextField>
+                                                </Grid>
+>>>>>>> refactor-login
                                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ margin: "1em 0" }} >
                                                     <TextField margin="none" label="Formato unhas pé direito" sx={{ width: '100%' }} value={ficha.formatoUnhasPD} onChange={(event) => setInput(event, 'formatoUnhasPD')}></TextField>
                                                 </Grid>
@@ -292,6 +379,7 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                         </Grid>
 
                                         {/* ------------------------FIM HISTORICO MEDICO------------------------------ */}
+<<<<<<< HEAD
 
 
                                     </Grid>
@@ -302,6 +390,10 @@ const ModalVerFicha: React.FC<ModalEditarProps> = ({ openFicha, fichaClose, id_f
                                     </Grid>
 
                                 </Grid>
+=======
+                                    </Grid>
+                                ))}
+>>>>>>> refactor-login
                             </form>
                         </FormControl>
                     </Box>

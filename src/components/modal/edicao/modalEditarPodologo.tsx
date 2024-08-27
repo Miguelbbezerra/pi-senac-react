@@ -2,7 +2,11 @@ import { Box, Divider, Modal, TextField, Typography, Button, Grid } from "@mui/m
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../../helper/localStorage";
 import dayjs from "dayjs";
+<<<<<<< HEAD
 import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../../mask/MaskInput";
+=======
+import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../../../components/mask/MaskInput";
+>>>>>>> refactor-login
 
 interface ModalEditarProps {
     openFicha: boolean;

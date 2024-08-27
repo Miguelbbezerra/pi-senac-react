@@ -2,7 +2,11 @@ import { Box, Divider, Modal, TextField, Typography, Button, Grid, Snackbar } fr
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../../helper/localStorage";
 import dayjs from "dayjs";
+<<<<<<< HEAD
 import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../../mask/MaskInput";
+=======
+import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../../../components/mask/MaskInput";
+>>>>>>> refactor-login
 
 interface ModalEditarProps {
     openFicha: boolean;
@@ -26,6 +30,23 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
         p: 4,
     };
 
+<<<<<<< HEAD
+=======
+    const [formData, setFormData] = useState({
+        nomeCompleto: "",
+        cpf: "",
+        email: "",
+        telefone: "",
+        dataNascimento: "",
+        genero: "",
+        cep: "",
+        cidade: "",
+        bairro: "",
+        rua: "",
+        numero: ""
+    })
+
+>>>>>>> refactor-login
     // INICIO SET DE PACIENTES
 
     function updatePaciente() {
@@ -103,7 +124,11 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
         };
 
         fetchData();
+<<<<<<< HEAD
     }, []);
+=======
+    }, [formData, id]);
+>>>>>>> refactor-login
 
 
     function fetchPacienteUnico(id: number) {
@@ -142,6 +167,7 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
     }
 
 
+<<<<<<< HEAD
     const [formData, setFormData] = useState({
         nomeCompleto: "",
         cpf: "",
@@ -155,6 +181,9 @@ const ModalEditarPaciente: React.FC<ModalEditarProps> = ({ openFicha, fichaClose
         rua: "",
         numero: ""
     })
+=======
+    
+>>>>>>> refactor-login
 
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);

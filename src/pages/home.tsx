@@ -34,6 +34,7 @@ const Home: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
+<<<<<<< HEAD
         usuario();
     }, []);
 
@@ -60,6 +61,41 @@ const Home: React.FC = () => {
             })
             .catch((error) => console.error('Error:', error));
     }
+=======
+
+        return (() => {
+           const user = GetItemLocalStorage('user')
+           if(user) {
+
+               setUser(JSON.parse(user))
+           }
+        })
+    }, []);
+
+    // function usuario() {
+    //     const myHeaders = new Headers();
+    //     myHeaders.append("Content-Type", "application/json");
+
+    //     const token = GetItemLocalStorage('token');
+
+    //     const raw = JSON.stringify({
+    //         "token": token
+    //     });
+
+    //     const requestOptions = {
+    //         method: "POST",
+    //         headers: myHeaders,
+    //         body: raw,
+    //     };
+
+    //     fetch("https://api-pi-senac.azurewebsites.net/api/validate-token", requestOptions)
+    //         .then((response) => response.json())  // Use response.json() para tratar a resposta como JSON
+    //         .then((data) => {
+    //             setUser(data.decoded.data)
+    //         })
+    //         .catch((error) => console.error('Error:', error));
+    // }
+>>>>>>> refactor-login
 
     return (
         <>
@@ -82,8 +118,13 @@ const Home: React.FC = () => {
             <Divider style={{ margin: '1em 0' }} />
             <Grid container spacing={10}>
                 {data.map((item, index) => (
+<<<<<<< HEAD
                     <Grid item xs={12} sm={12} md={4} lg={4} >
                         <Card key={index} sx={{ maxWidth: '100%' }}>
+=======
+                    <Grid key={index} item xs={12} sm={12} md={4} lg={4} >
+                        <Card sx={{ maxWidth: '100%' }}>
+>>>>>>> refactor-login
                             <CardMedia
                                 sx={{ height: 200 }}
                                 image={item.image}

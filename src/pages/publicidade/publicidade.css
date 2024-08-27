@@ -1,0 +1,60 @@
+@media screen and (max-width: 899px) {
+    .imageList {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .imageList {
+        width: 80%;
+    }
+}
+
+.imageList {
+    display: flex;
+    flex-direction: column;
+}
+
+
+@media screen and (max-width: 899px) {
+    .imageGallery {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .imageGallery {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 899px) {
+    .imgFooter {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .imgFooter {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 899px) {
+    .imgHeader {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .imgHeader {
+        width: 90%;
+    }
+}
+
+
+.linkIcons {
+    margin: 0 5px;
+    text-decoration: none;
+    color: rgb(42, 41, 59);
+}

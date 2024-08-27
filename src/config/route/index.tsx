@@ -8,10 +8,18 @@ import Perfil from "../../pages/perfil";
 import Podologo from "../../pages/podologo";
 import FichaAnamnese from "../../pages/fichaAnamnese";
 import PrivateRoute from "./privateRoute";
+<<<<<<< HEAD
+=======
+import Publicidade from "../../pages/publicidade/publicidade";
+>>>>>>> refactor-login
 
 
 export const router = createBrowserRouter(createRoutesFromElements(
     <Route>
+<<<<<<< HEAD
+=======
+        <Route path="/uo-dds" element={<Publicidade />} />
+>>>>>>> refactor-login
         <Route path="/" element={<Login />} />
         <Route element={<PrivateRoute redirectTo="/" />}>
             <Route path="/admin" element={<Root />}>

@@ -3,10 +3,17 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../helper/localStorage";
+<<<<<<< HEAD
 import ModalEditarPodologo from "../modal/edicao/modalEditarPodologo";
 import ModalDelete from "../modal/delete/modalDelete";
 import InputPesquisar from "../pesquisar";
 import ModalPodologo from "../modal/modalPodologo";
+=======
+import ModalEditarPodologo from "../../components/modal/edicao/modalEditarPodologo";
+import ModalDelete from "../../components/modal/delete/modalDelete";
+import InputPesquisar from "../../components/pesquisar";
+import ModalPodologo from "../../components/modal/modalPodologo";
+>>>>>>> refactor-login
 
 const TabelaPodologo = () => {
 

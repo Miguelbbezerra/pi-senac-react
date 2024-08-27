@@ -89,6 +89,7 @@ export const GeneroMaskInput = React.forwardRef<HTMLInputElement, CustomProps>(
     },
 );
 
+<<<<<<< HEAD
 // Máscara para apenas letras
 export const PasswordMaskInput = React.forwardRef<HTMLInputElement, CustomProps>(
     function PasswordMaskInput(props, ref) {
@@ -111,6 +112,8 @@ export const PasswordMaskInput = React.forwardRef<HTMLInputElement, CustomProps>
     },
 );
 
+=======
+>>>>>>> refactor-login
 // Máscara para apenas letras e espaços
 export const LettersMaskInput = React.forwardRef<HTMLInputElement, CustomProps>(
     function LettersMaskInput(props, ref) {

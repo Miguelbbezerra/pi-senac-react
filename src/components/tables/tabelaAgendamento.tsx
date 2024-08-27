@@ -4,9 +4,15 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
 import { GetItemLocalStorage } from "../../helper/localStorage";
+<<<<<<< HEAD
 import ModalEditarAgendamento from "../modal/edicao/modalEditarAgendamento";
 import ModalVerFicha from "../modal/ficha/modalVerFicha";
 import ModalDelete from "../modal/delete/modalDelete";
+=======
+import ModalEditarAgendamento from "../../components/modal/edicao/modalEditarAgendamento";
+import ModalVerFicha from "../../components/modal/ficha/modalVerFicha";
+import ModalDelete from "../../components/modal/delete/modalDelete";
+>>>>>>> refactor-login
 
 const TabelaAgendamento = () => {
 
@@ -138,12 +144,20 @@ const TabelaAgendamento = () => {
                                 <TableCell>{agendamento.descricao}</TableCell>
                                 <TableCell>{agendamento.situacao}</TableCell>
                                 <TableCell>
+<<<<<<< HEAD
                                     {agendamento.anamnese !== null && agendamento.anamnese !== undefined ? (
+=======
+                                    {agendamento.anamnese ? (
+>>>>>>> refactor-login
                                         <IconButton color="secondary" onClick={() => AnamneseOpen(agendamento.anamnese.id)}>
                                             <PostAddIcon />
                                         </IconButton>
                                     ) : (
+<<<<<<< HEAD
                                         <IconButton color="secondary" onClick={() => window.location.href = `/admin/ficha/?ida=${agendamento}&idpa=${agendamento.paciente}&idpo=${agendamento.podologo}`}>
+=======
+                                        <IconButton color="secondary" onClick={() => window.location.href = `/admin/ficha/?ida=${agendamento.id}&idpa=${agendamento.paciente.id}&idpo=${agendamento.podologo.id}`}>
+>>>>>>> refactor-login
                                             <PostAddIcon />
                                         </IconButton>
                                     )}

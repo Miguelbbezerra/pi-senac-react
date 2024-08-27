@@ -22,20 +22,30 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Diversity1 } from '@mui/icons-material';
+<<<<<<< HEAD
 import ImagemLogo from './../../../images/logo-ext-white.png';
+=======
+import ImagemLogo from '../../../images/logo-ext-white.png';
+>>>>>>> refactor-login
 import { Button } from '@mui/material';
 import { DeleteItemLocalStorage } from '../../../helper/localStorage';
 import { useNavigate } from 'react-router-dom';
 interface Props {
+<<<<<<< HEAD
     /**
      * Injected by the documentation to work in an iframe.
      * Remove this when copying and pasting into your project.
      */
+=======
+>>>>>>> refactor-login
     window?: () => Window;
     children?: JSX.Element
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-login
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -82,7 +92,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
+<<<<<<< HEAD
     // necessary for content to be below app bar
+=======
+>>>>>>> refactor-login
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
 }));
@@ -101,6 +114,7 @@ export default function PersistentDrawerLeft(props: Props) {
     };
 
     const navigate = useNavigate();
+<<<<<<< HEAD
     //FUNCAO DE LOGOUT
     async function logOut() {
         try {
@@ -108,18 +122,32 @@ export default function PersistentDrawerLeft(props: Props) {
 
             await DeleteItemLocalStorage('token')
 
+=======
+
+    async function logOut() {
+        try {
+            await DeleteItemLocalStorage('token')
+>>>>>>> refactor-login
             navigate('/');
         } catch (error) {
             console.warn(error)
         }
+<<<<<<< HEAD
 
     }
     //FUNCAO DE LOGOUT
+=======
+    }
+>>>>>>> refactor-login
 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
+<<<<<<< HEAD
             <AppBar position="fixed" open={open}>
+=======
+            <AppBar position="fixed" open={open} >
+>>>>>>> refactor-login
                 <Toolbar sx={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
                     <IconButton
                         color="inherit"
@@ -134,6 +162,10 @@ export default function PersistentDrawerLeft(props: Props) {
                 </Toolbar>
             </AppBar>
             <Drawer
+<<<<<<< HEAD
+=======
+                onMouseLeave={() => setOpen(false)}
+>>>>>>> refactor-login
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
@@ -141,7 +173,10 @@ export default function PersistentDrawerLeft(props: Props) {
                         width: drawerWidth,
                         boxSizing: 'border-box',
                     },
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-login
                 }}
                 variant="persistent"
                 anchor="left"
@@ -176,9 +211,14 @@ export default function PersistentDrawerLeft(props: Props) {
                     </div>
                 </List>
                 <Divider />
+<<<<<<< HEAD
 
             </Drawer>
             <Main open={open}>
+=======
+            </Drawer>
+            <Main open={open} onClick={() => setOpen(false)}>
+>>>>>>> refactor-login
                 <DrawerHeader />
                 {children}
             </Main>

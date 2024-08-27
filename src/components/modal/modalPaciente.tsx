@@ -3,6 +3,7 @@ import { useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+<<<<<<< HEAD
 import InputPesquisar from "../pesquisar";
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../mask/MaskInput";
@@ -73,6 +74,28 @@ const ModalPaciente = () => {
     }
 
 
+=======
+import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../../components/mask/MaskInput";
+import InputPesquisarPaciente from "../../components/pesquisarPaciente";
+import api from "../../helper/http";
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '80%',
+    height: '100%',
+    bgcolor: 'background.paper',
+    border: '2px solid #1976d2',
+    borderRadius: '0.5em',
+    boxShadow: 24,
+    p: 4,
+};
+
+const ModalPaciente = () => {
+
+>>>>>>> refactor-login
     const [formData, setFormData] = useState({
         nomeCompleto: "",
         cpf: "",
@@ -87,14 +110,18 @@ const ModalPaciente = () => {
         cidade: ""
     })
 
+<<<<<<< HEAD
     // FIM TRATANDO DADOS DE PACIENTES
 
     // INICIO COD MODAL
 
+=======
+>>>>>>> refactor-login
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+<<<<<<< HEAD
     // FIM COD MODAL
 
     const style = {
@@ -111,10 +138,48 @@ const ModalPaciente = () => {
         p: 4,
     };
 
+=======
+>>>>>>> refactor-login
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const handleSnackbarClose = () => setSnackbarOpen(false);
 
+<<<<<<< HEAD
+=======
+    async function salvarPaciente() {
+        try {
+            const dataNascimento = dayjs(formData.dataNascimento).format('YYYY-MM-DD')
+            console.log("data nascimento", dataNascimento)
+            const newFormData = Object.assign({}, formData, { dataNascimento: dataNascimento })
+
+            const raw = JSON.stringify(newFormData);
+            await api.post('paciente', raw)
+            return window.location.reload()
+
+        } catch (error: any) {
+            setSnackbarMessage(error.message);
+            setSnackbarOpen(true);
+        }
+    }
+
+    const setData = (event: any, key: string) => {
+
+        const value = dayjs(event).format('YYYY-MM-DD')
+
+        const newFormData = Object.assign({}, formData, { [key]: value })
+
+        setFormData(newFormData)
+    }
+
+    const setInput = (event: any, key: string) => {
+
+        const value = event.target.value
+        const newFormData = Object.assign({}, formData, { [key]: value })
+
+        setFormData(newFormData)
+    }
+
+>>>>>>> refactor-login
     return (
         <>
             <Grid container spacing={2}>
@@ -132,9 +197,13 @@ const ModalPaciente = () => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
+<<<<<<< HEAD
                         <div>
                             <h4>Cadastro de Paciente</h4>
                         </div>
+=======
+                        <h4>Cadastro de Paciente</h4>
+>>>>>>> refactor-login
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <Divider style={{ margin: '1em 0' }} />

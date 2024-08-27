@@ -2,6 +2,7 @@ import { Box, IconButton, Table, TableBody, TableCell, TableHead, TableRow } fro
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import ModalEditarPaciente from "../modal/edicao/modalEditarPaciente";
 import ModalDelete from "../modal/delete/modalDelete";
@@ -28,11 +29,20 @@ const TabelaPaciente = () => {
         return filtros
     }
 
+=======
+import ModalEditarPaciente from "../modal/edicao/modalEditarPaciente";
+import ModalDelete from "../modal/delete/modalDelete";
+import api from "../../helper/http";
+
+
+const TabelaPaciente = () => {
+>>>>>>> refactor-login
     const [pacientes, setPacientes] = useState<any[]>([]);
     const [openEdit, setOpenEdit] = useState<boolean>(false);
     const [openDelete, setOpenDelete] = useState<boolean>(false);
     const [selectedId, setSelectedId] = useState<number | null>(null);
 
+<<<<<<< HEAD
     useEffect(() => {
         const filtro = procuraParametro()
         fetchPacientes(filtro);
@@ -66,22 +76,68 @@ const TabelaPaciente = () => {
     // FIM GET DE PACIENTES
 
     // Funções para abrir e fechar o modal de edição
+=======
+    function procuraParametro() {
+        const urlParams = new URLSearchParams(window.location.href)
+        let filtros = '?'
+        urlParams.forEach((value, key) => {
+            console.log(`Parâmetro '${key}':`);
+            if (value) {
+                console.log(`Valor: ${value}`);
+                filtros = filtros + `&${key}=${value}`
+                return filtros
+            } else {
+                console.log(`Este parâmetro não possui um valor.`);
+                return false
+            }
+        });
+
+    }
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const filtro = await procuraParametro()
+                const data = await fetchPacientes(filtro);
+                setPacientes(data)
+            } catch (error) {
+                console.error("Erro no fetch de dados", error)
+            }
+        }
+        fetchData()
+    }, []);
+
+    async function fetchPacientes(filtro: any) {
+        const response = await api.get('paciente', filtro && {params: {filtro}});
+        return response.data;
+    }
+
+>>>>>>> refactor-login
     const EditOpen = (id: number) => {
         setSelectedId(id);
         setOpenEdit(true);
     };
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-login
     const EditClose = () => {
         setOpenEdit(false);
         setSelectedId(null);
     };
+<<<<<<< HEAD
 
     // Funções para abrir e fechar o modal de exclusão
+=======
+>>>>>>> refactor-login
     const DeleteOpen = (id: number) => {
         setSelectedId(id);
         setOpenDelete(true);
     };
+<<<<<<< HEAD
 
+=======
+>>>>>>> refactor-login
     const DeleteClose = () => {
         setOpenDelete(false);
         setSelectedId(null);

@@ -4,8 +4,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import dayjs from "dayjs";
 import React, { useState } from "react";
+<<<<<<< HEAD
 import InputPesquisar from "../pesquisar";
 import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../mask/MaskInput";
+=======
+import { CEPMaskInput, CPFMaskInput, GeneroMaskInput, LettersMaskInput, NumbersMaskInput, PhoneMaskInput } from "../../components/mask/MaskInput";
+>>>>>>> refactor-login
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const ModalPodologo = () => {

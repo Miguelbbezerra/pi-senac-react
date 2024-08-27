@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import {SetItemLocalStorage, GetItemLocalStorage} from '../../helper/localStorage'
+>>>>>>> refactor-login
 // auth.ts
 export const validateToken = async (token: string): Promise<boolean> => {
     try {
@@ -19,6 +23,12 @@ export const validateToken = async (token: string): Promise<boolean> => {
       }
   
       const data = await response.json();
+<<<<<<< HEAD
+=======
+      if(!GetItemLocalStorage('user')) {
+        SetItemLocalStorage('user', JSON.stringify(data.decoded.data))
+      }
+>>>>>>> refactor-login
       return data.valid; // Supondo que a API retorna um objeto { valid: true/false }
     } catch (error) {
       console.error('Token validation error:', error);

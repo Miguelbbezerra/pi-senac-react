@@ -5,7 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> refactor-login
 }
 
 code {
@@ -13,6 +17,12 @@ code {
     monospace;
 }
 
+<<<<<<< HEAD
 .teste{
   background-color: rgb(244, 244, 245);
 }
+=======
+.teste {
+  background-color: rgb(244, 244, 245);
+}
+>>>>>>> refactor-login

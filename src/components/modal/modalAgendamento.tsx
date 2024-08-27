@@ -1,8 +1,13 @@
 import { Box, Button, Divider, FormControl, Grid, InputLabel, MenuItem, Modal, Select, Snackbar, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 import InputPesquisar from "../pesquisar";
 import { GetItemLocalStorage } from "../../helper/localStorage";
 import InputPesquisarAgendamento from "../pesquisarAgendamento";
+=======
+import { GetItemLocalStorage } from "../../helper/localStorage";
+import InputPesquisarAgendamento from "../../components/pesquisarAgendamento";
+>>>>>>> refactor-login
 
 const ModalAgendamento = () => {
 
